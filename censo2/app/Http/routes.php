@@ -14,50 +14,15 @@
 use App\Colaborador;
 use Illuminate\Http\Request;
 
-/**
- * Show Task Dashboard
- */
 Route::get('/', function () {
-    $colaboradores = Colaborador::orderBy('created_at', 'asc')->get();
+        return view('welcome');
+    })->middleware('guest');
 
-    return view('colaborador', [
-        'colaboradores' => $colaboradores
-    ]);
+Route::auth();
     
-});
+Route::get('/colaboradores', 'ColaboradorController@index');
+Route::get('/preview', 'ColaboradorController@preview');
+Route::post('/colaborador', 'ColaboradorController@store');
+Route::delete('/colaborador/{colaborador}', 'ColaboradorController@destroy');
 
-/**
- * Add New Task
- */
-Route::post('/colaborador', function (Request $request) {
-    $validator = Validator::make($request->all(), [
-        'nome' => 'required|max:255',
-    ]);
-    
-    $validator = Validator::make($request->all(), [
-        'codigo' => 'required|max:11',
-    ]);
-
-    if ($validator->fails()) {
-        return redirect('/')
-            ->withInput()
-            ->withErrors($validator);
-    }
-
-    // Create The Task...
-    $colaborador = new Colaborador;
-    $colaborador->nome = $request->nome;
-    $colaborador->codigo = $request->codigo;
-    $colaborador->save();
-
-    return redirect('/');
-});
-
-/**
- * Delete Task
- */
-Route::delete('/colaborador/{colaborador}', function (Colaborador $colaborador) {
-    $colaborador->delete();
-
-    return redirect('/');
-});
+Route::get('/home', 'HomeController@index');

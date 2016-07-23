@@ -6,6 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Colaborador extends Model
 {   
-    protected $table = 'colaborador';
-    //
+    
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['nome','codigo'];
+    
+        /**
+     * Get the user that owns the task.
+     */
+    public function user()
+    {
+        return $this->belongsTo(Colaborador::class);
+    }
 }

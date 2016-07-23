@@ -12,10 +12,11 @@ class CreateColaboradorTable extends Migration
      */
     public function up()
     {
-        Schema::create('colaborador', function (Blueprint $table) {
+        Schema::create('colaboradors', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome');
             $table->integer('codigo');
+            $table->integer('user_id')->index();
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreateColaboradorTable extends Migration
      */
     public function down()
     {
-        Schema::drop('colaborador');
+        Schema::drop('colaboradors');
     }
 }
