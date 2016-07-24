@@ -15,8 +15,9 @@ use App\Colaborador;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
-        return view('welcome');
-    })->middleware('guest');
+    return view('pages.index');
+});
+
 
 Route::auth();
     
@@ -26,3 +27,20 @@ Route::post('/colaborador', 'ColaboradorController@store');
 Route::delete('/colaborador/{colaborador}', 'ColaboradorController@destroy');
 
 Route::get('/home', 'HomeController@index');
+
+Route::get("/efectivo", function(){
+	return view('layout.form_efectivo');
+});
+
+Route::get("/reformados", function()
+        {
+            return view('layout.form_reformados');
+        });
+        
+Route::get("/pensionistas", function()
+        {
+            return view('layout.form_pensionistas');
+        });
+Route::get("/policies", function(){
+	return view('pages.policies');
+});
