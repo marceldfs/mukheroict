@@ -11,26 +11,33 @@
 |
 */
 
-use App\Colaborador;
-use Illuminate\Http\Request;
-
 Route::get('/', function () {
     return view('pages.index');
 });
 
-
-Route::auth();
-    
-Route::get('/colaboradores', 'ColaboradorController@index');
-Route::get('/preview', 'ColaboradorController@preview');
-Route::post('/colaborador', 'ColaboradorController@store');
-Route::delete('/colaborador/{colaborador}', 'ColaboradorController@destroy');
-
-Route::get('/home', 'HomeController@index');
-
 Route::get("/efectivo", function(){
 	return view('layout.form_efectivo');
 });
+
+Route::get("/quali", function(){
+	return view('layout.form_c_efectivo_qualificacao');
+});
+
+Route::get("/experiencia", function(){
+	return view('layout.form_c_efectivo_experiencia');
+});
+Route::get("/fami", function(){
+	return view('layout.form_c_efectivo_familiares');
+});
+
+Route::get("/historico", function(){
+	return view('layout.form_c_efectivo_historico');
+});
+
+Route::get("/historicoa", function(){
+	return view('layout.form_c_efectivo_historico_outras');
+});
+
 
 Route::get("/reformados", function()
         {
