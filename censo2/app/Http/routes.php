@@ -12,6 +12,7 @@
 */
 
 use App\Colaborador;
+use App\Funcionario;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
@@ -28,19 +29,24 @@ Route::delete('/colaborador/{colaborador}', 'ColaboradorController@destroy');
 
 Route::get('/home', 'HomeController@index');
 
-Route::get("/efectivo", function(){
-	return view('layout.form_efectivo');
-});
+Route::get("/efectivo", ['as' => 'efectivo', 'uses' => 'ColaboradorController@formularioEfectivo']);
 
-Route::get("/reformados", function()
+Route::post("/efectivo", ['as' => 'efectivo', 'uses' => 'ColaboradorController@storeFuncionarioEfectivo']);
+        
+Route::get("/reformado", ['as' => 'reformado', function () 
         {
             return view('layout.form_reformados');
-        });
+        }]);
         
-Route::get("/pensionistas", function()
+Route::get("/pensionista", ['as' => 'pensionista', function () 
         {
             return view('layout.form_pensionistas');
-        });
+        }]);
+    
 Route::get("/policies", function(){
 	return view('pages.policies');
+});
+
+Route::get("/verificarCodigo", function(){
+    Funcionario_existente::orderBy('created_at', 'asc')->where('codigo',$request->codigo)->get();
 });
