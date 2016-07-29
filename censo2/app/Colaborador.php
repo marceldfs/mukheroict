@@ -17,7 +17,12 @@ class Colaborador extends Model
         /**
      * Get the user that owns the task.
      */
-    public function user()
+    public function userSelected()
+    {
+        return $this->belongsTo(Colaborador::class);
+    }
+    
+    public function userCreated()
     {
         return $this->belongsTo(Colaborador::class);
     }

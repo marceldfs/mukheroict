@@ -6,7 +6,7 @@
 
         <div class="form-group">
             {!! Form::label('banco','Banco:', ['class' => 'label-required','for' => 'bancometical' ]) !!}								    
-            {!! Form::select('bancometical', [ 'bm1', 'bm1','bm1', 'bm1'], null, ['class' => 'form-control ', 'id' => 'bancometical']) !!}			    										
+            {!! Form::select('bancometical', $bancos, null, ['class' => 'form-control ', 'id' => 'bancometical']) !!}			    										
         </div>
         <div class="form-group">
             {!! Form::label('lcontamt','N&deg; de Conta em Metical:', ['class' => 'label-required','for' => 'contamt'])  !!}
@@ -15,7 +15,7 @@
             
         <div class="form-group">									
             {!! Form::label('banco','Banco:', ['for' => 'bancousd' ]) !!}								    
-            {!! Form::select('bancousd', [ 'bm1', 'bm1','bm1', 'bm1'], null, ['class' => 'form-control ', 'id' => 'bancousd']) !!}						
+            {!! Form::select('bancousd', $bancos, null, ['class' => 'form-control ', 'id' => 'bancousd']) !!}						
         </div>
         <div class="form-group"> 
             {!! Form::label('lcontausd','N&deg; de Conta em Dolares:', ['for' => 'contausd'])  !!}

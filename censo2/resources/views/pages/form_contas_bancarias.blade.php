@@ -5,20 +5,20 @@
     <div class="panel-body">
 
         <div class="form-group">
-            {!! Form::label('banco','Banco:', ['class' => 'label-required','for' => 'bancometical' ]) !!}								    
-            {!! Form::select('bancometical', [ 'bm1', 'bm1','bm1', 'bm1'], null, ['class' => 'form-control ', 'id' => 'bancometical']) !!}			    										
+            {!! Form::label('banco','Banco:', ['class' => 'label-required','for' => 'banco_mzn' ]) !!}								    
+            {!! Form::select('banco_mzn', $bancos, null, ['class' => 'form-control ', 'id' => 'banco_mzn']) !!}			    										
         </div>
         <div class="form-group">
-            {!! Form::label('lcontamt','Pens&atilde;o em Meticais:', ['class' => 'label-required','for' => 'contamt'])  !!}
-            {!! Form::text('contamt',null,['class' => 'form-control ', 'id' => 'contamt']) !!}
+            {!! Form::label('lcontamt','Pens&atilde;o em Meticais:', ['class' => 'label-required','for' => 'numero_conta_mzn'])  !!}
+            {!! Form::text('numero_conta_mzn',null,['class' => 'form-control ','type' => 'number', 'id' => 'numero_conta_mzn']) !!}
         </div>
         <div class="form-group">									
-            {!! Form::label('banco','Banco:', ['for' => 'bancousd' ]) !!}								    
-            {!! Form::select('bancousd', [ 'bm1', 'bm1','bm1', 'bm1'], null, ['class' => 'form-control ', 'id' => 'bancousd']) !!}						
+            {!! Form::label('banco','Banco:', ['for' => 'banco_usd' ]) !!}								    
+            {!! Form::select('banco_usd', $bancos, null, ['class' => 'form-control ', 'id' => 'banco_usd']) !!}						
         </div>
         <div class="form-group"> 
-            {!! Form::label('lcontausd','N&deg; de Conta em Dolares:', ['for' => 'contausd'])  !!}
-            {!! Form::text('contausd',null,['class' => 'form-control ', 'id' => 'contausd']) !!}
+            {!! Form::label('lcontausd','N&deg; de Conta em Dolares:', ['for' => 'numero_conta_usd'])  !!}
+            {!! Form::text('numero_conta_usd',null,['class' => 'form-control ','type' => 'number', 'id' => 'numero_conta_usd']) !!}
         </div>					    	
     </div>	
 </div>  

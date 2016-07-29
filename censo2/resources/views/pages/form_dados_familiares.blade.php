@@ -18,7 +18,7 @@
         </div>
          <div class="form-group  ">
                 {!! Form::label('lparentesco','Parentesco:', ['class' => 'label-required','for' => 'parentesco'])  !!}
-               {!! Form::select('parentesco', [ 'pai', 'mae','bm1', 'bm1'], null, ['class' => 'form-control ', 'id' => 'parentesco']) !!}						
+               {!! Form::select('parentesco', $parentescos, null, ['class' => 'form-control ', 'id' => 'parentesco']) !!}						
             </div>
      
     </div>	

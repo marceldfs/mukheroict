@@ -39,7 +39,7 @@
         </form>
     </div>
 
-        <!-- Current Tasks -->
+    <!-- Current Tasks -->
     @if (count($colaboradores) > 0)
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -67,6 +67,55 @@
                                 
                                 <td class="table-text">
                                     <div>{{ $colaborador->codigo }}</div>
+                                </td>
+
+                                <!-- Delete Button -->
+                                <td>
+                                    <form action="{{ url('colaborador/'.$colaborador->id) }}" method="POST">
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
+
+                                        <button type="submit" id="delete-task-{{ $colaborador->id }}" class="btn btn-danger">
+                                            <i class="fa fa-btn fa-trash"></i>Apagar
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    @endif
+    
+    <!-- Current Tasks -->
+    @if (count($colaboradores2) > 0)
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Colaboradores registados
+            </div>
+
+            <div class="panel-body">
+                <table class="table table-striped task-table">
+
+                    <!-- Table Headings -->
+                    <thead>
+                        <th>Nome do Colaborador</th>
+                        <th>Codigo</th>
+                        <th>&nbsp;</th>
+                    </thead>
+
+                    <!-- Table Body -->
+                    <tbody>
+                        @foreach ($colaboradores2 as $colaborador)
+                            <tr>
+                                <!-- Task Name -->
+                                <td class="table-text">
+                                    <div>{{ $colaborador->nome }}</div>
+                                </td>
+                                
+                                <td class="table-text">
+                                    <div>{{ $colaborador->user_id }}</div>
                                 </td>
 
                                 <!-- Delete Button -->

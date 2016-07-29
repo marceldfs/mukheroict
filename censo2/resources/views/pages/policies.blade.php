@@ -67,8 +67,10 @@
                                                         </ul>
                                                     </li>
                                                 </ol>
-                                                  {!!Form::submit('Confirmar',['class' => 'btn btn-warning pull-right']); !!}
-					</div>
+                                                {{Form::open(['route'=>app('request')->input('tipo'),'method'=>'GET'])}}
+                                                  {!!Form::submit('Confirmar',['class' => 'btn btn-warning pull-right','action'=>'/'.app('request')->input('tipo')]); !!}
+					        {{Form::close()}}
+                                        </div>
                                   
 			</div>
 		</div>

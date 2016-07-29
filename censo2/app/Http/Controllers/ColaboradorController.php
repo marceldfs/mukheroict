@@ -6,9 +6,25 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\User;
+use App\Banco;
+use App\Estado_civil;
+use App\Genero;
+use App\Distrito;
+use App\Provincia;
+use App\Tipo_carta_conducao;
+use App\Tipo_documento;
+use App\Pais;
+use App\Tamanho_letra;
+use App\Tamanho_numero;
+use App\Tipo_sanguineo;
+use App\Parentesco;
 use App\Repositories\ColaboradorRepository;
+use App\Funcionario;
+use App\Funcionario_efectivo;
 use App;
 use Input;
+use Auth;
+
 
 class ColaboradorController extends Controller
 {
@@ -36,7 +52,60 @@ class ColaboradorController extends Controller
 
         return view('colaboradores.index', [
             'colaboradores' => $this->colaboradores->forUser($request->user()),
+            'colaboradores2' => $this->colaboradores->forUser2($request->user()),
             'users' => $users,
+        ]);
+    }
+    
+    public function formularioEfectivo(Request $request)
+    {
+        return view('layout.form_efectivo', [
+            'bancos' => Banco::pluck('descricao', 'id'),
+            'estados_civil' => Estado_civil::pluck('descricao', 'id'),
+            'generos' => Genero::pluck('descricao', 'id'),
+            'provincias' => Provincia::pluck('descricao', 'id'),
+            'distritos' => Distrito::pluck('descricao', 'id'),
+            'tipos_documento' => Tipo_documento::pluck('descricao', 'id'),
+            'tipos_carta' => Tipo_carta_conducao::pluck('descricao', 'id'),
+            'paises' => Pais::pluck('descricao', 'id'),
+            'tamanhos_letra' => Tamanho_letra::pluck('descricao', 'id'),
+            'tamanhos_numero' => Tamanho_numero::pluck('descricao', 'id'),
+            'tipos_sanguineo' => Tipo_sanguineo::pluck('descricao', 'id'),
+        ]);
+    }
+    
+    public function formularioReformado(Request $request)
+    {
+        return view('layout.form_reformados', [
+            'bancos' => Banco::pluck('descricao', 'id'),
+            'estados_civil' => Estado_civil::pluck('descricao', 'id'),
+            'generos' => Genero::pluck('descricao', 'id'),
+            'provincias' => Provincia::pluck('descricao', 'id'),
+            'distritos' => Distrito::pluck('descricao', 'id'),
+            'tipos_documento' => Tipo_documento::pluck('descricao', 'id'),
+            'tipos_carta' => Tipo_carta_conducao::pluck('descricao', 'id'),
+            'paises' => Pais::pluck('descricao', 'id'),
+            'tamanhos_letra' => Tamanho_letra::pluck('descricao', 'id'),
+            'tamanhos_numero' => Tamanho_numero::pluck('descricao', 'id'),
+            'tipos_sanguineo' => Tipo_sanguineo::pluck('descricao', 'id'),
+        ]);
+    }
+    
+    public function formularioPensionista(Request $request)
+    {
+        return view('layout.form_pensionistas', [
+            'bancos' => Banco::pluck('descricao', 'id'),
+            'estados_civil' => Estado_civil::pluck('descricao', 'id'),
+            'generos' => Genero::pluck('descricao', 'id'),
+            'provincias' => Provincia::pluck('descricao', 'id'),
+            'distritos' => Distrito::pluck('descricao', 'id'),
+            'tipos_documento' => Tipo_documento::pluck('descricao', 'id'),
+            'tipos_carta' => Tipo_carta_conducao::pluck('descricao', 'id'),
+            'paises' => Pais::pluck('descricao', 'id'),
+            'tamanhos_letra' => Tamanho_letra::pluck('descricao', 'id'),
+            'tamanhos_numero' => Tamanho_numero::pluck('descricao', 'id'),
+            'tipos_sanguineo' => Tipo_sanguineo::pluck('descricao', 'id'),
+            'parentescos' => Parentesco::pluck('descricao', 'id'),
         ]);
     }
     
@@ -66,6 +135,169 @@ class ColaboradorController extends Controller
        ]);
 
        return redirect('/colaboradores');
+   }
+   
+   public function storeFuncionarioEfectivo(Request $request)
+   {
+       $this->validate($request, [
+           'codigo' => 'required|exists:funcionario_existente,codigo|unique:funcionarios,codigo',
+           'nome_completo' =>'required|max:75',
+           'numero_documento' =>'required|max:20',
+           'nuit' =>'required|digits_between:5,11',
+           'numero_conta_mzn' =>'required|digits_between:7,21',
+           'celular' =>'required|digits_between:8,13',
+           'morada' =>'required',
+           'email' =>'required|email',
+           'numero_inss' =>'digits_between:5,11',
+           //'codigo' => 'required|max:11|digits'
+       ]);
+       
+       $user=Auth::user()->funcionariosCreated();
+       $estado_civil=Estado_civil::where('id',$request->input('estado_civil'))->first();
+       
+       $funcionario=new Funcionario;
+       $funcionario->codigo=$request->codigo;
+       $funcionario->nome_completo=$request->nome_completo;
+       $funcionario->estado_civil=$request->input('estado_civil');
+       $funcionario->genero=$request->input('genero');
+       $funcionario->tipo_documento=$request->input('tipo_documento');
+       $funcionario->numero_documento=$request->numero_documento;
+       $funcionario->nuit=$request->nuit;
+       $funcionario->data_nascimento=$request->data_nascimento;
+       $funcionario->provincia_naturalidade=$request->input('provincia_naturalidade');
+       $funcionario->distrito_naturalidade=$request->input('distrito_naturalidade');
+       $funcionario->banco_mzn=$request->input('banco_mzn');
+       $funcionario->numero_conta_mzn=$request->numero_conta_mzn;
+       $funcionario->banco_usd=$request->input('banco_usd');
+       $funcionario->numero_conta_usd=$request->numero_conta_usd;
+       $funcionario->provincia_morada=$request->input('provincia_morada');
+       $funcionario->distrito_morada=$request->input('distrito_morada');
+       $funcionario->pais_morada=$request->input('pais_morada');
+       $funcionario->localidade=$request->localidade;
+       $funcionario->celular=$request->celular;
+       $funcionario->celular_alternativo=$request->celular_alternativo;
+       $funcionario->morada=$request->morada;
+       $funcionario->email=$request->email;
+               
+       $funcionario->user_created=Auth::id();
+       
+       $funcionario->save();
+       
+       $id=Funcionario::where('codigo',$request->codigo)->first()->id;
+       
+       $funcionario_efectivo=new Funcionario_efectivo;
+       $funcionario_efectivo->funcionario_id=$id;
+       $funcionario_efectivo->numero_inss=$request->numero_inss;
+       $funcionario_efectivo->numero_carta_conducao=$request->numero_carta_conducao;
+       $funcionario->tipo_carta_conducao=$request->input('tipo_carta_conducao');
+       $funcionario->tamanho_camisete=$request->input('tamanho_camisete');
+       $funcionario->tamanho_botas=$request->input('tamanho_botas');
+       $funcionario->tamanho_fato=$request->input('tamanho_fato');
+       $funcionario->tamanho_capacete=$request->input('tamanho_capacete');
+       $funcionario->tipo_sanguineo=$request->input('tipo_sanguineo');
+       
+       $funcionario_efectivo->save();
+       
+       return redirect('/');
+   }
+   
+   public function storeFuncionarioReformado(Request $request)
+   {
+       $this->validate($request, [
+           'codigo' => 'required|exists:funcionario_existente,codigo|unique:funcionarios,codigo',
+           'nome_completo' =>'required|max:75',
+           'numero_documento' =>'required|max:20',
+           'nuit' =>'required|digits_between:5,11',
+           'numero_conta_mzn' =>'required|digits_between:7,21',
+           'celular' =>'required|digits_between:8,13',
+           'morada' =>'required',
+           'email' =>'required|email',
+           'numero_inss' =>'digits_between:5,11',
+           //'codigo' => 'required|max:11|digits'
+       ]);
+       
+       $user=Auth::user()->funcionariosCreated();
+       $estado_civil=Estado_civil::where('id',$request->input('estado_civil'))->first();
+       
+       $funcionario=new Funcionario;
+       $funcionario->codigo=$request->codigo;
+       $funcionario->nome_completo=$request->nome_completo;
+       $funcionario->estado_civil=$request->input('estado_civil');
+       $funcionario->genero=$request->input('genero');
+       $funcionario->tipo_documento=$request->input('tipo_documento');
+       $funcionario->numero_documento=$request->numero_documento;
+       $funcionario->nuit=$request->nuit;
+       $funcionario->data_nascimento=$request->data_nascimento;
+       $funcionario->provincia_naturalidade=$request->input('provincia_naturalidade');
+       $funcionario->distrito_naturalidade=$request->input('distrito_naturalidade');
+       $funcionario->banco_mzn=$request->input('banco_mzn');
+       $funcionario->numero_conta_mzn=$request->numero_conta_mzn;
+       $funcionario->banco_usd=$request->input('banco_usd');
+       $funcionario->numero_conta_usd=$request->numero_conta_usd;
+       $funcionario->provincia_morada=$request->input('provincia_morada');
+       $funcionario->distrito_morada=$request->input('distrito_morada');
+       $funcionario->pais_morada=$request->input('pais_morada');
+       $funcionario->localidade=$request->localidade;
+       $funcionario->celular=$request->celular;
+       $funcionario->celular_alternativo=$request->celular_alternativo;
+       $funcionario->morada=$request->morada;
+       $funcionario->email=$request->email;
+               
+       $funcionario->user_created=Auth::id();
+       
+       $funcionario->save();
+       
+       return redirect('/');
+   }
+   
+   public function storeFuncionarioPensionista(Request $request)
+   {
+       $this->validate($request, [
+           'codigo' => 'required|exists:funcionario_existente,codigo|unique:funcionarios,codigo',
+           'nome_completo' =>'required|max:75',
+           'numero_documento' =>'required|max:20',
+           'nuit' =>'required|digits_between:5,11',
+           'numero_conta_mzn' =>'required|digits_between:7,21',
+           'celular' =>'required|digits_between:8,13',
+           'morada' =>'required',
+           'email' =>'required|email',
+           //'codigo' => 'required|max:11|digits'
+       ]);
+       
+       $user=Auth::user()->funcionariosCreated();
+       $estado_civil=Estado_civil::where('id',$request->input('estado_civil'))->first();
+       
+       $funcionario=new Funcionario;
+       $funcionario->codigo=$request->codigo;
+       $funcionario->nome_completo=$request->nome_completo;
+       $funcionario->estado_civil=$request->input('estado_civil');
+       $funcionario->genero=$request->input('genero');
+       $funcionario->tipo_documento=$request->input('tipo_documento');
+       $funcionario->numero_documento=$request->numero_documento;
+       $funcionario->nuit=$request->nuit;
+       $funcionario->data_nascimento=$request->data_nascimento;
+       $funcionario->provincia_naturalidade=$request->input('provincia_naturalidade');
+       $funcionario->distrito_naturalidade=$request->input('distrito_naturalidade');
+       $funcionario->banco_mzn=$request->input('banco_mzn');
+       $funcionario->numero_conta_mzn=$request->numero_conta_mzn;
+       $funcionario->banco_usd=$request->input('banco_usd');
+       $funcionario->numero_conta_usd=$request->numero_conta_usd;
+       $funcionario->provincia_morada=$request->input('provincia_morada');
+       $funcionario->distrito_morada=$request->input('distrito_morada');
+       $funcionario->pais_morada=$request->input('pais_morada');
+       $funcionario->localidade=$request->localidade;
+       $funcionario->celular=$request->celular;
+       $funcionario->celular_alternativo=$request->celular_alternativo;
+       $funcionario->morada=$request->morada;
+       $funcionario->email=$request->email;
+               
+       $funcionario->user_created=Auth::id();
+       
+       $funcionario->save();
+       
+       $id=Funcionario::where('codigo',$request->codigo)->first()->id;
+       
+       return redirect('/');
    }
    
     /**

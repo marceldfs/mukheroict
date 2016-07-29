@@ -48,11 +48,12 @@
                       </ul>
                     </li>-->
                   </ul>
+                  
                   <form class="navbar-form navbar-right" role="search">
                      <div class="form-group">
                         <input type="text" class="input-sm form-control" placeholder="Search">
                      </div>
-                        <button type="submit" class="btn btn-sm btn-warning">Submit</button>
+                        <button type="submit" class="btn btn-sm btn-warning">Procurar</button>
                   </form>
                 </div>
               </div>

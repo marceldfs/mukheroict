@@ -4,16 +4,16 @@
     </div>
     <div class="panel-body">
         <div class="form-group">
-            {!! Form::label('ldatanasc','Data de Nascimento:', ['class' => 'label-required','for' => 'datanasc' ]) !!}	
-            {!! Form::date('name', \Carbon\Carbon::now()) !!}
+            {!! Form::label('ldatanasc','Data de Nascimento:', ['class' => 'label-required','for' => 'data_nascimento' ]) !!}	
+            {!! Form::date('data_nascimento', \Carbon\Carbon::now()) !!}
         </div>
         <div class="form-group">									
             {!! Form::label('lprov','Provincia:', ['class' => 'label-required','for' => 'provincia' ]) !!}								    
-            {!! Form::select('provincia', [ 'Provincia1', 'Provi2','Provincia1', 'Provi2'], null, ['class' => 'form-control ', 'id' => 'provincia']) !!}			    										
+            {!! Form::select('provincia_naturalidade', $provincias, null, ['class' => 'form-control ', 'id' => 'provincia_naturalidade']) !!}			    										
         </div>
         <div class="form-group">
             {!! Form::label('ldistrito','Distrito:', ['for' => 'distrito' ]) !!}								    
-            {!! Form::select('distrito', [ 'Provincia1', 'Provi2','Provincia1', 'Provi2'], null, ['class' => 'form-control ', 'id' => 'distrito']) !!}			    										
+            {!! Form::select('distrito_naturalidade', $distritos, null, ['class' => 'form-control ', 'id' => 'distrito_naturalidade']) !!}			    										
         </div>						    	
     </div>	
 </div>  

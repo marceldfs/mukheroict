@@ -31,6 +31,27 @@ class User extends Authenticatable
      */
     public function Colaboradores()
     {
-        return $this->hasMany(Colaborador::class);
+        return $this->hasMany(Colaborador::class,"codigo");
+    }
+    
+    /**
+     * Get all of the tasks for the user.
+     */
+    public function Colaboradores2()
+    {
+        return $this->hasMany(Colaborador::class,"user_id");
+    }
+    
+    public function FuncionariosCreated()
+    {
+        return $this->hasMany(Funcionario::class,"user_created");
+    }
+    
+    /**
+     * Get all of the tasks for the user.
+     */
+    public function FuncionariosUpdated()
+    {
+        return $this->hasMany(Funcionario::class,"user_updated");
     }
 }

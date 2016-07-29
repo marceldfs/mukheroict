@@ -7,16 +7,16 @@
         <div class="form-horizontal">
 
             <div class="form-group col-lg-4">
-                {!! Form::label('lcamisetes','Tamanho das Camisetes :', [ 'class' => 'label-required','for' => 'scamisetes' ]) !!}	
-                {!! Form::select('scamisetes', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'scamisetes']) !!}
+                {!! Form::label('lcamisetes','Tamanho das Camisetes :', [ 'class' => 'label-required','for' => 'tamanho_camisete' ]) !!}	
+                {!! Form::select('tamanho_camisete', $tamanhos_letra, null, ['class' => 'form-control ', 'id' => 'tamanho_camisete']) !!}
             </div>	
             <div class="form-group col-lg-4 ">
-                {!! Form::label('lbotas','Tamanho das botas:', ['class' => 'label-required','for' => 'sbotas'])  !!}
-                {!! Form::select('sbotas', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'sbotas']) !!}
+                {!! Form::label('lbotas','Tamanho das botas:', ['class' => 'label-required','for' => 'tamanho_botas'])  !!}
+                {!! Form::select('tamanho_botas', $tamanhos_numero, null, ['class' => 'form-control ', 'id' => 'tamanho_botas']) !!}
             </div>
             <div class="form-group col-lg-4">
-                {!! Form::label('lfato','Tamanho do fato das operações:', ['class' => 'label-required','for' => 'sfato'])  !!}
-                {!! Form::select('sfato', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'sfato']) !!}
+                {!! Form::label('lfato','Tamanho do fato das operações:', ['class' => 'label-required','for' => 'tamanho_fato'])  !!}
+                {!! Form::select('tamanho_fato', $tamanhos_letra, null, ['class' => 'form-control ', 'id' => 'tamanho_fato']) !!}
             </div>
 
         </div>
@@ -24,12 +24,12 @@
         <!--Capacete e sangue-->
         <div class="form-horizontal">
             <div class="form-group col-lg-6">
-                {!! Form::label('lcapacete','Tamanho do capacete:', ['class' => 'label-required', 'for' => 'scapacete' ]) !!}	
-                {!! Form::select('scapacete', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'scapacete']) !!}
+                {!! Form::label('tamanho_capacete','Tamanho do capacete:', ['class' => 'label-required', 'for' => 'tamanho_capacete' ]) !!}	
+                {!! Form::select('tamanho_capacete', $tamanhos_numero, null, ['class' => 'form-control ', 'id' => 'tamanho_capacete']) !!}
             </div>	
             <div class="form-group col-lg-6 pull-right">
-                {!! Form::label('lsangue','Tipo sanguineo:', [ 'class' => 'label-required','for' => 'ssangue' ]) !!}	
-                {!! Form::select('ssangue', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'ssangue']) !!}
+                {!! Form::label('lsangue','Tipo sanguineo:', [ 'class' => 'label-required','for' => 'tipo_sanguineo' ]) !!}	
+                {!! Form::select('tipo_sanguineo', $tipos_sanguineo, null, ['class' => 'form-control ', 'id' => 'tipo_sanguineo']) !!}
             </div>
         </div>
 

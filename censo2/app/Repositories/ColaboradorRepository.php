@@ -18,4 +18,11 @@ class ColaboradorRepository
                     ->orderBy('created_at', 'asc')
                     ->get();
     }
+    
+    public function forUser2(User $user)
+    {
+        return $user->Colaboradores2()
+                    ->orderBy('created_at', 'asc')
+                    ->get();
+    }
 }

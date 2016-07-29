@@ -16,9 +16,15 @@ use App\Funcionario;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
-    return view('pages.index');
+    $user = Auth::user();
+    
+    $funcionariosInseridos = $user->FuncionariosCreated()->get();
+    
+    
+    return view('pages.index',[
+        'funcionariosInseridos'=>$funcionariosInseridos,
+    ]);
 });
-
 
 Route::auth();
     
@@ -33,20 +39,14 @@ Route::get("/efectivo", ['as' => 'efectivo', 'uses' => 'ColaboradorController@fo
 
 Route::post("/efectivo", ['as' => 'efectivo', 'uses' => 'ColaboradorController@storeFuncionarioEfectivo']);
         
-Route::get("/reformado", ['as' => 'reformado', function () 
-        {
-            return view('layout.form_reformados');
-        }]);
-        
-Route::get("/pensionista", ['as' => 'pensionista', function () 
-        {
-            return view('layout.form_pensionistas');
-        }]);
+Route::get("/reformado", ['as' => 'reformado', 'uses' => 'ColaboradorController@formularioReformado']);
+
+Route::post("/reformado", ['as' => 'reformado', 'uses' => 'ColaboradorController@storeFuncionarioReformado']);
+
+Route::get("/pensionista", ['as' => 'pensionista', 'uses' => 'ColaboradorController@formularioPensionista']);
+
+Route::post("/pensionista", ['as' => 'pensionista', 'uses' => 'ColaboradorController@storeFuncionarioPensionista']);
     
 Route::get("/policies", function(){
 	return view('pages.policies');
-});
-
-Route::get("/verificarCodigo", function(){
-    Funcionario_existente::orderBy('created_at', 'asc')->where('codigo',$request->codigo)->get();
 });
