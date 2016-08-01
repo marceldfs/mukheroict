@@ -6,8 +6,8 @@
     <div class="panel-body">
           <div class="form-horizontal">
             <div class="form-group col-lg-6">
-            {!! Form::label('lcodfamiliar','Codigo:', ['class' => 'label-required','for' => 'famcod'])  !!}
-            {!! Form::text('famcod',null,['class' => 'form-control ', 'id' => 'famcod']) !!}
+            {!! Form::label('lcodfamiliar','Codigo:', ['class' => 'label-required','for' => 'codigo_ex_familiar'])  !!}
+            {!! Form::text('codigo_ex_familiar',null,['class' => 'form-control ', 'id' => 'codigo_ex_familiar']) !!}
             </div>	
               
             <div class="form-group col-lg-6 pull-right">

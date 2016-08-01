@@ -14,8 +14,8 @@
                 {!! Form::select('tipo_documento', $tipos_documento, null, ['class' => 'form-control ', 'id' => 'tipo_documento']) !!}
             </div>	
             <div class="form-group col-lg-6 pull-right">
-                {!! Form::label('lndoc','Numero do documento:', ['class' => 'label-required','for' => 'ndoc'])  !!}
-                {!! Form::text('ndoc',null,['class' => 'form-control ', 'id' => 'ndoc']) !!}
+                {!! Form::label('lndoc','Numero do documento:', ['class' => 'label-required','for' => 'numero_documento'])  !!}
+                {!! Form::text('numero_documento',null,['class' => 'form-control ', 'id' => 'numero_documento']) !!}
             </div>
         </div>
     </div>	

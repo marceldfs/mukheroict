@@ -21,6 +21,8 @@ use App\Parentesco;
 use App\Repositories\ColaboradorRepository;
 use App\Funcionario;
 use App\Funcionario_efectivo;
+use App\Funcionario_reformado;
+use App\Funcionario_pensionista;
 use App;
 use Input;
 use Auth;
@@ -189,12 +191,12 @@ class ColaboradorController extends Controller
        $funcionario_efectivo->funcionario_id=$id;
        $funcionario_efectivo->numero_inss=$request->numero_inss;
        $funcionario_efectivo->numero_carta_conducao=$request->numero_carta_conducao;
-       $funcionario->tipo_carta_conducao=$request->input('tipo_carta_conducao');
-       $funcionario->tamanho_camisete=$request->input('tamanho_camisete');
-       $funcionario->tamanho_botas=$request->input('tamanho_botas');
-       $funcionario->tamanho_fato=$request->input('tamanho_fato');
-       $funcionario->tamanho_capacete=$request->input('tamanho_capacete');
-       $funcionario->tipo_sanguineo=$request->input('tipo_sanguineo');
+       $funcionario_efectivo->tipo_carta_conducao=$request->input('tipo_carta_conducao');
+       $funcionario_efectivo->tamanho_camisete=$request->input('tamanho_camisete');
+       $funcionario_efectivo->tamanho_botas=$request->input('tamanho_botas');
+       $funcionario_efectivo->tamanho_fato=$request->input('tamanho_fato');
+       $funcionario_efectivo->tamanho_capacete=$request->input('tamanho_capacete');
+       $funcionario_efectivo->tipo_sanguineo=$request->input('tipo_sanguineo');
        
        $funcionario_efectivo->save();
        
@@ -247,6 +249,15 @@ class ColaboradorController extends Controller
        
        $funcionario->save();
        
+       $id=Funcionario::where('codigo',$request->codigo)->first()->id;
+       
+       $funcionario_reformado=new Funcionario_reformado;
+       $funcionario_reformado->funcionario_id=$id;
+       $funcionario_reformado->pensao_reforma_mzn=$request->pensao_reforma_mzn;
+       $funcionario_reformado->pensao_reforma_usd=$request->pensao_reforma_usd;
+       
+       $funcionario_reformado->save();
+       
        return redirect('/');
    }
    
@@ -261,6 +272,7 @@ class ColaboradorController extends Controller
            'celular' =>'required|digits_between:8,13',
            'morada' =>'required',
            'email' =>'required|email',
+           'codigo_familiar' => 'required|exists:funcionario_existente,codigo',
            //'codigo' => 'required|max:11|digits'
        ]);
        
@@ -296,6 +308,19 @@ class ColaboradorController extends Controller
        $funcionario->save();
        
        $id=Funcionario::where('codigo',$request->codigo)->first()->id;
+       
+       $funcionario_pensionista=new Funcionario_pensionista;
+       $funcionario_pensionista->funcionario_id=$id;
+       $funcionario_pensionista->pensao_mzn=$request->pensao_reforma_mzn;
+       $funcionario_pensionista->pensao_usd=$request->pensao_reforma_usd;
+       $funcionario_pensionista->codigo_ex_familiar=$request->codigo_ex_familiar;
+       
+       $nome=Funcionario::where('codigo',$request->codigo)->first()->nome;
+       
+       $funcionario_pensionista->nome_ex_familiar=$nome;
+       $funcionario_pensionista->parentesco=$request->input('parentesco');
+       
+       $funcionario_pensionista->save();
        
        return redirect('/');
    }

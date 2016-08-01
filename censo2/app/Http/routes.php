@@ -16,14 +16,20 @@ use App\Funcionario;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
-    $user = Auth::user();
-    
-    $funcionariosInseridos = $user->FuncionariosCreated()->get();
-    
-    
-    return view('pages.index',[
-        'funcionariosInseridos'=>$funcionariosInseridos,
-    ]);
+    if(Auth::check())
+    {
+        $user = Auth::user();
+
+        $funcionariosInseridos = $user->FuncionariosCreated()->get();
+
+
+        return view('pages.index',[
+            'funcionariosInseridos'=>$funcionariosInseridos,
+        ]);
+    }
+    else{
+        return view('pages.index');
+    }
 });
 
 Route::auth();

@@ -47,7 +47,9 @@
         <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2>Censo 2016</h2>
+                    @if(Auth::check())
                     <h3>Funcionarios inseridos: {{count($funcionariosInseridos)}}</h3>
+                    @endif
                     <p> Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus,</p>
                     <p><a class="btn btn-lg btn-default btn-lg-edm" href="#" role="button">Saber Mais </a></p>
                 </div>

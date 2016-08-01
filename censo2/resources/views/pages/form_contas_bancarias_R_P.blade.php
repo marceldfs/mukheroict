@@ -5,36 +5,36 @@
     <div class="panel-body">
 
         <div class="form-group">
-            {!! Form::label('banco','Banco:', ['class' => 'label-required','for' => 'bancometical' ]) !!}								    
-            {!! Form::select('bancometical', $bancos, null, ['class' => 'form-control ', 'id' => 'bancometical']) !!}			    										
+            {!! Form::label('banco','Banco:', ['class' => 'label-required','for' => 'banco_mzn' ]) !!}								    
+            {!! Form::select('banco_mzn', $bancos, null, ['class' => 'form-control ', 'id' => 'banco_mzn']) !!}			    										
         </div>
         <div class="form-group">
-            {!! Form::label('lcontamt','N&deg; de Conta em Metical:', ['class' => 'label-required','for' => 'contamt'])  !!}
-            {!! Form::text('contamt',null,['class' => 'form-control ', 'id' => 'contamt']) !!}
+            {!! Form::label('lcontamt','N&deg; de Conta em Metical:', ['class' => 'label-required','for' => 'numero_conta_mzn'])  !!}
+            {!! Form::text('numero_conta_mzn',null,['class' => 'form-control ', 'id' => 'numero_conta_mzn']) !!}
         </div>
             
         <div class="form-group">									
-            {!! Form::label('banco','Banco:', ['for' => 'bancousd' ]) !!}								    
-            {!! Form::select('bancousd', $bancos, null, ['class' => 'form-control ', 'id' => 'bancousd']) !!}						
+            {!! Form::label('banco','Banco:', ['for' => 'banco_usd' ]) !!}								    
+            {!! Form::select('banco_usd', $bancos, null, ['class' => 'form-control ', 'id' => 'banco_usd']) !!}						
         </div>
         <div class="form-group"> 
-            {!! Form::label('lcontausd','N&deg; de Conta em Dolares:', ['for' => 'contausd'])  !!}
-            {!! Form::text('contausd',null,['class' => 'form-control ', 'id' => 'contausd']) !!}
+            {!! Form::label('lcontausd','N&deg; de Conta em Dolares:', ['for' => 'numero_conta_usd'])  !!}
+            {!! Form::text('numero_conta_usd',null,['class' => 'form-control ', 'id' => 'numero_conta_usd']) !!}
         </div>	
         
         <fieldset>
             <legend> Valores da Pens&atilde;o</legend>
          
             <div class="form-group">           
-            {!! Form::label('lpensaomz','Pens&atilde;o em Meticais:', ['class' => 'label-required','for' => 'pensaomz'])  !!}
+            {!! Form::label('lpensaomz','Pens&atilde;o em Meticais:', ['class' => 'label-required','for' => 'pensao_reforma_mzn'])  !!}
             <span class="input-group-addon" id="basic-addon2">MZN</span>         
-            {!! Form::text('pensaomz',null,['class' => 'form-control ', 'id' => 'pensaomz', 'aria-describedby' => 'basic-addon2']) !!}
+            {!! Form::text('pensao_reforma_mzn',null,['class' => 'form-control ', 'id' => 'pensao_reforma_mzn', 'aria-describedby' => 'basic-addon2']) !!}
             
         </div> 
          <div class="form-group">
-            {!! Form::label('lpensaous','Pens&atilde;o em Dolares:', ['class' => 'label-required','for' => 'pensaous'])  !!}
+            {!! Form::label('lpensaous','Pens&atilde;o em Dolares:', ['class' => 'label-required','for' => 'pensao_reforma_usd'])  !!}
            <span class="input-group-addon" id="basic-addon">USD</span>         
-            {!! Form::text('pensaous',null,['class' => 'form-control ', 'id' => 'pensaous', 'aria-describedby' => 'basic-addon']) !!}
+            {!! Form::text('pensao_reforma_usd',null,['class' => 'form-control ', 'id' => 'pensao_reforma_usd', 'aria-describedby' => 'basic-addon']) !!}
         </div>   
         </fieldset>
     </div>	
