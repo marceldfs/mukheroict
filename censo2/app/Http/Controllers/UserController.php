@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Tipo_utilizador;
 
 
 class UserController extends Controller
@@ -60,16 +61,23 @@ class UserController extends Controller
     {
         return view('layout.form_actualizar_utilizador', [
             'utilizador' => $utilizador,
+            'tipo_utilizadores' => Tipo_utilizador::pluck('descricao', 'id'),
+            'tipo_utilizador' => $utilizador->tipo_utilizador,
         ]);
     }
     
     public function alterar(Request $request, User $utilizador)
     {
+        if($request->password!="" && $request->password_confirmation!="")
+        {
         $this->validate($request, [
            'password' => 'required|min:6|confirmed',
         ]);
-        
         $utilizador->password=bcrypt($request->password);
+        }
+        
+        $utilizador->tipo_utilizador=$request->input('tipo_utilizador');
+        
         $utilizador->save();
         return redirect('/utilizadores');
     }
