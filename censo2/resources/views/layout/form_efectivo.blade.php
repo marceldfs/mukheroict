@@ -5,9 +5,7 @@
         <div class="panel-heading panel-orange-heading">
             <h3 class="panel-heading-text text-center"> Ficha de Registro de Efectivos </h3>
         </div>
-        <div class="panel-body">
-            @include('common.errors')
-            
+        <div class="panel-body">           
             {{Form::open()}}
             <div class="row">
                 <div class="col-lg-12">

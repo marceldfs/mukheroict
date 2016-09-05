@@ -6,8 +6,6 @@
             <h3 class="panel-heading-text text-center"> Ficha de Registro de Reformados </h3>
         </div>
         <div class="panel-body">
-            @include('common.errors')
-            
             {{Form::open()}}
             <div class="row">
                 <div class="col-lg-12">

@@ -35,6 +35,24 @@
                     <li><a href="/efectivo">Efectivo</a></li>
                     <li><a href="/reformado">Reformados</a></li>
                     <li><a href="/pensionista">Pensionistas</a></li>
+                    <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                Supervisor <span class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('/relatorio') }}"><i class="fa fa-btn fa-sign-out"></i>Relatorio</a></li>
+                            </ul>
+                    </li>
+                    <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                Administrador <span class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('/utilizadores') }}"><i class="fa fa-btn fa-sign-out"></i>Utilizadores</a></li>
+                            </ul>
+                    </li>
                     <!-- Authentication Links -->
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Login</a></li>
@@ -50,26 +68,15 @@
                             </ul>
                         </li>
                     @endif
-                   <!-- <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                      <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li class="dropdown-header">Nav header</li>
-                        <li><a href="#">Separated link</a></li>
-                        <li><a href="#">One more separated link</a></li>
-                      </ul>
-                    </li>-->
                   </ul>
                   
+                    <!--
                   <form class="navbar-form navbar-right" role="search">
                      <div class="form-group">
                         <input type="text" class="input-sm form-control" placeholder="Search">
                      </div>
                         <button type="submit" class="btn btn-sm btn-warning">Procurar</button>
-                  </form>
+                  </form>-->
                 </div>
               </div>
             </nav>

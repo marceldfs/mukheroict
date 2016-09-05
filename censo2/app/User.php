@@ -47,11 +47,23 @@ class User extends Authenticatable
         return $this->hasMany(Funcionario::class,"user_created");
     }
     
+    public function FuncionariosCreatedAt( $creationDate)
+    {
+        //return Funcionario::where('created_at', '>=', $creationDate.' 00:00:00')->where('created_at', '<=', $creationDate.' 23:59:59');
+        //return $creationDate.' 00:00:00';
+        return Funcionario::whereDate('created_at', '=' , $creationDate)->where('user_created',$this->id) ->get();
+    }
+    
     /**
      * Get all of the tasks for the user.
      */
     public function FuncionariosUpdated()
     {
         return $this->hasMany(Funcionario::class,"user_updated");
+    }
+    
+    public function TipoUtilizador()
+    {
+        return $this->belongsTo(User::class);
     }
 }

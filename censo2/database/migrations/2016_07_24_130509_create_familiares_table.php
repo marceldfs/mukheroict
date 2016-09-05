@@ -12,7 +12,7 @@ class CreateFamiliaresTable extends Migration
      */
     public function up()
     {
-        Schema::create('familiaress', function (Blueprint $table) {
+        Schema::create('familiars', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('funcionario_id')->index();
             $table->string('nome')->length(50);

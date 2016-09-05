@@ -8,6 +8,8 @@ class Funcionario_existente extends Model
 {
     protected $fillable = ['codigo','nome'];
     
+    protected $table = 'funcionario_existente';
+    
     public function Funcionario()
     {
         return $this->hasOne(Funcionario::class,"codigo");

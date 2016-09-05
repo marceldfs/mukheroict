@@ -66,7 +66,15 @@ class AuthController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'active' => 0,
             'password' => bcrypt($data['password']),
         ]);
+    }
+    
+    public function getCredentials($request)
+    {
+        $credentials = $request->only($this->loginUsername(), 'password');
+
+        return array_add($credentials, 'active', '1');
     }
 }

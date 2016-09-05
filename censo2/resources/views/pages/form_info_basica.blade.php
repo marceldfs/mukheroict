@@ -3,9 +3,14 @@
         Informa&ccedil;&otilde;es Basicas
     </div>
     <div class="panel-body">
-        <div class="form-group">
+        <div class="form-group {{ $errors->has('nome_completo') ? ' has-error' : '' }}">
             {!! Form::label('lname1','Nome Completo:', ['class' => 'label-required','for' => 'nome_completo' ]) !!}			    		
-            {!! Form::text('nome_completo',null,['class' => 'form-control', 'id' => 'nome_completo']) !!}	
+            {!! Form::text('nome_completo',null,['class' => 'form-control', 'id' => 'nome_completo']) !!}
+            @if ($errors->has('nome_completo'))
+            <span class="help-block">
+                <strong>{{ $errors->first('nome_completo') }}</strong>
+            </span>
+            @endif
         </div>
         <div class="form-horizontal">
             <div class="form-group col-lg-6">	
