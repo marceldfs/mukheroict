@@ -78,3 +78,11 @@ Route::get('/utilizador/{utilizador}', 'UserController@mostrar');
 Route::delete('/utilizador/{utilizador}', 'UserController@apagar');
 
 Route::post('/salvarUtilizador/{utilizador}', 'UserController@alterar');
+
+Route::get('/mudarsenha', 'UserController@mudarSenha');
+
+Route::post('/salvarSenha', 'UserController@salvarSenha');
+
+Route::get('/criaUtilizador', 'UserController@criarUtilizador');
+
+Route::post('/salvarUtilizador', 'UserController@salvarUtilizador');

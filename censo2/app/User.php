@@ -47,10 +47,8 @@ class User extends Authenticatable
         return $this->hasMany(Funcionario::class,"user_created");
     }
     
-    public function FuncionariosCreatedAt( $creationDate)
+    public function FuncionariosCreatedAt($creationDate)
     {
-        //return Funcionario::where('created_at', '>=', $creationDate.' 00:00:00')->where('created_at', '<=', $creationDate.' 23:59:59');
-        //return $creationDate.' 00:00:00';
         return Funcionario::whereDate('created_at', '=' , $creationDate)->where('user_created',$this->id) ->get();
     }
     
@@ -65,5 +63,10 @@ class User extends Authenticatable
     public function TipoUtilizador()
     {
         return $this->belongsTo(User::class);
+    }
+    
+    public function TipoUtilizadorUser($tipo_utilizador)
+    {
+        return Tipo_utilizador::where('id', $tipo_utilizador)->first();
     }
 }

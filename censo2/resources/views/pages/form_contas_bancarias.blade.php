@@ -10,7 +10,7 @@
         </div>
         <div class="form-group {{ $errors->has('numero_conta_mzn') ? ' has-error' : '' }}">
             {!! Form::label('lcontamt','N&deg; de Conta em Meticais:', ['class' => 'label-required','for' => 'numero_conta_mzn'])  !!}
-            {!! Form::text('numero_conta_mzn',null,['class' => 'form-control ','type' => 'number', 'id' => 'numero_conta_mzn']) !!}
+            {!! Form::text('numero_conta_mzn',null,['class' => 'form-control ','type' => 'number', 'id' => 'numero_conta_mzn', 'readonly' => 'true']) !!}
             @if ($errors->has('numero_conta_mzn'))
             <span class="help-block">
                 <strong>{{ $errors->first('numero_conta_mzn') }}</strong>
@@ -23,7 +23,7 @@
         </div>
         <div class="form-group"> 
             {!! Form::label('lcontausd','N&deg; de Conta em Dolares:', ['for' => 'numero_conta_usd'])  !!}
-            {!! Form::text('numero_conta_usd',null,['class' => 'form-control ','type' => 'number', 'id' => 'numero_conta_usd']) !!}
+            {!! Form::text('numero_conta_usd',null,['class' => 'form-control ','type' => 'number', 'id' => 'numero_conta_usd', 'readonly' => 'true']) !!}
         </div>					    	
     </div>	
 </div>  

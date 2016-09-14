@@ -7,7 +7,7 @@
         <div class="form-horizontal">
             <div class="form-group col-lg-6 {{ $errors->has('codigo_familiar') ? ' has-error' : '' }}">
                 {!! Form::label('lcodfamiliar','Codigo:', ['class' => 'label-required','for' => 'codigo_familiar'])  !!}
-                {!! Form::text('codigo_familiar',null,['class' => 'form-control ', 'id' => 'codigo_familiar']) !!}
+                {!! Form::text('codigo_familiar',null,['class' => 'form-control ', 'id' => 'codigo_familiar', 'readonly' => 'true']) !!}
                 @if ($errors->has('codigo_familiar'))
                 <span class="help-block">
                     <strong>{{ $errors->first('codigo_familiar') }}</strong>

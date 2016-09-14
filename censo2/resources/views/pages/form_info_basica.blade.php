@@ -5,7 +5,7 @@
     <div class="panel-body">
         <div class="form-group {{ $errors->has('nome_completo') ? ' has-error' : '' }}">
             {!! Form::label('lname1','Nome Completo:', ['class' => 'label-required','for' => 'nome_completo' ]) !!}			    		
-            {!! Form::text('nome_completo',null,['class' => 'form-control', 'id' => 'nome_completo']) !!}
+            {!! Form::text('nome_completo',null,['class' => 'form-control', 'id' => 'nome_completo', 'readonly' => 'true']) !!}
             @if ($errors->has('nome_completo'))
             <span class="help-block">
                 <strong>{{ $errors->first('nome_completo') }}</strong>

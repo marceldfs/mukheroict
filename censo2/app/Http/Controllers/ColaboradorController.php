@@ -126,92 +126,100 @@ class ColaboradorController extends Controller
         $tipo=$request->input('tipo');
         
         $pdf = App::make('dompdf.wrapper');
-        $html = '<h2>Ficha do funcionario gravado</h2><br>';
         
         $funcionario=Funcionario::where('id',$id)->first();
+        $funcionario_existente=  Funcionario_existente::where ('codigo',$funcionario->codigo)->first();
+        
+        $html = '<div style="text-transform:uppercase">';
+        $html = $html.'<b>Nome </b><u>'.$funcionario_existente->nome.'</u>';
+        $html = $html.'<div style="text-align:right;"> <b>Codigo </b><u>'.$funcionario_existente->codigo.'</u></div>';
         
         if($tipo=="efectivo")
         {
-            $html=$html."<h3>Tipo funcionario: Efectivo</h3>";
+            $html=$html.'<p style="text-align:center;">FICHA DE COLABORADORES EFECTIVO</p></div>';
             $funcionario_efectivo=Funcionario_efectivo::where('funcionario_id',$id)->first();
         }
         if($tipo=="reformado")
         {
-            $html=$html."<h3>Tipo funcionario: Reformado</h3>";
+            $html=$html.'<p style="text-align:center;">FICHA DE COLABORADORES REFORMADO</p></div>';
             $funcionario_reformado=Funcionario_reformado::where('funcionario_id',$id)->first();
         }
         if($tipo=="pensionista")
         {
-            $html=$html."<h3>Tipo funcionario: Pensionista</h3>";
+            $html=$html.'<p style="text-align:center;"><b>FICHA DE COLABORADOR PENSIONISTA</b></p></div>';
             $funcionario_pensionista=Funcionario_pensionista::where('funcionario_id',$id)->first();
         }
         
+            $html = $html.'<p style="text-align:center;"><i><u>Dados Pessoais</u></i></p>';
+            $html = $html.'<table border="1" style="text-align:center;margin: 0 auto;" width="80%" bgcolor="#F7D358">';
+            $html = $html.'<tr><td colspan="2"><i>NOMECOMPLETO</i><br>'.$funcionario->nome_completo.'</td></tr>';
+            $html = $html.'<tr><td><i>PROVINCIA(Endereco)</i><br>'.Provincia::where('id',$funcionario->provincia_morada)->
+                    first()->descricao.'</td>';
+            $html = $html.'<td><i>DISTRITO(Endereco)</i><br>'.Distrito::where('id',$funcionario->distrito_morada)->
+                    first()->descricao.'</td></tr>';
+            $html = $html.'<tr><td><i>PAIS(Endereco)</i><br>'.Pais::where('id',$funcionario->pais_morada)->
+                    first()->descricao.'</td>';
+            $html = $html.'<td><i>LOCALIDADE(Endereco)</i><br>'.$funcionario->localidade.'</td></tr>';
+            $html = $html.'<tr><td colspan="2"><i>RUA/AVENIDA (Endereco)</i><br>'.$funcionario->morada.'</td></tr>';
+            $html = $html.'<tr><td><i>ESTADO CIVIL</i><br>'.Estado_civil::where('id',$funcionario->estado_civil)->
+                    first()->descricao.'</td>';
+            $html = $html.'<td><i>GENERO</i><br>'.Genero::where('id',$funcionario->genero)->
+                    first()->descricao.'</td></tr>';
+            $html = $html.'<tr><td colspan="2"><i>DATA DE NASCIMENTO</i><br>'.$funcionario->data_nascimento.'</td></tr>';
+            $html = $html.'<tr><td><i>TIPO DE DOC. IDENTIFICACAO</i><br>'.Tipo_documento::where('id',$funcionario->tipo_documento)->
+                    first()->descricao.'</td>';
+            $html = $html.'<td><i>NUMERO DO DOCUMENTO</i><br>'.$funcionario->numero_documento.'</td></tr>';
+            $html = $html.'<tr><td colspan="2"><i>NUIT</i><br>'.$funcionario->nuit.'</td></tr>';
+            $html = $html.'<tr><td><i>TELEFONE/CELULAR</i><br><br><i>Numero Principal</i><br>'.$funcionario->celular;
+            $html = $html.'<br><br><i>Numero Alternativo</i><br>'.$funcionario->celular_alternativo;
+        
+            $html = $html.'</td>';
+        
+            if($tipo=="efectivo")
+            {
+                $html = $html.'<td rowspan="1"><i>LOCAIS DE PAGAMENTO</i><br><br>METICAL<br>';
+            }
+            else
+            {
+                $html = $html.'<td rowspan="2"><i>LOCAIS DE PAGAMENTO</i><br><br>METICAL<br>';
+            }
             
-            $html = $html."<table>";
-            $html = $html."<tr><td>Codigo: </td><td>".$funcionario->codigo."</td></tr>";
-            $html = $html."<tr><td>Nome completo: </td><td>".$funcionario->nome_completo."</td></tr>";
-            $html=$html."<tr><td>Estado civil: </td><td>". Estado_civil::where('id',$funcionario->estado_civil)->
-                    first()->descricao."</td></tr>";
-            $html=$html."<tr><td>Genero: </td><td>". Genero::where('id',$funcionario->genero)->
-                    first()->descricao."</td></tr>";
-            $html=$html."<tr><td>Tipo de documento: </td><td>". Tipo_documento::where('id',$funcionario->tipo_documento)->
-                    first()->descricao."</td></tr>";
-            $html = $html."<tr><td>Numero documento: </td><td>".$funcionario->numero_documento."</td></tr>";
-            $html = $html."<tr><td>NUIT: </td><td>".$funcionario->nuit."</td></tr>";
-            $html = $html."<tr><td>Data de Nascimento: </td><td>".$funcionario->data_nascimento."</td></tr>";
-            $html=$html."<tr><td>Natural da provincia: </td><td>".  Provincia::where('id',$funcionario->provincia_naturalidade)->
-                    first()->descricao."</td></tr>";
-            $html=$html."<tr><td>Natural do distrito: </td><td>".  Distrito::where('id',$funcionario->distrito_naturalidade)->
-                    first()->descricao."</td></tr>";
+            $html = $html.'Banco <u>'.Banco::where('id',$funcionario->banco_mzn)->first()->descricao.'</u><br>';
+            $html = $html.'Conta <u>'.$funcionario->numero_conta_mzn.'</u><br>';
+            $html = $html.'NIB '.$funcionario->nib_mzn.'<br><br>';
+            $html = $html.'USD<br>Banco <u>'.Banco::where('id',$funcionario->banco_usd)->first()->descricao.'</u><br>';
+            $html = $html.'Conta <u>'.$funcionario->numero_conta_usd.'</u><br>';
+            $html = $html.'NIB '.$funcionario->nib_usd.'<br></td></tr>';
             
-            $html=$html."<tr><td>Banco meticais: </td><td>".  Banco::where('id',$funcionario->banco_mzn)->
-                    first()->descricao."</td></tr>";
-            $html = $html."<tr><td>Numero de conta meticais: </td><td>".$funcionario->numero_conta_mzn."</td></tr>";
-            $html = $html."<tr><td>NIB meticais: </td><td>".$funcionario->nib_mzn."</td></tr>";
-            $html=$html."<tr><td>Banco dolares: </td><td>".  Banco::where('id',$funcionario->banco_usd)->
-                    first()->descricao."</td></tr>";
-            $html = $html."<tr><td>Numero de conta dolares: </td><td>".$funcionario->numero_conta_usd."</td></tr>";
-            $html = $html."<tr><td>NIB dolares: </td><td>".$funcionario->nib_usd."</td></tr>";
-            $html=$html."<tr><td>Provincia (endereco): </td><td>".  Provincia::where('id',$funcionario->provincia_morada)->
-                    first()->descricao."</td></tr>";
-            $html=$html."<tr><td>Distrito (endereco): </td><td>".  Distrito::where('id',$funcionario->distrito_morada)->
-                    first()->descricao."</td></tr>";
-            $html=$html."<tr><td>Pais (endereco): </td><td>". Pais::where('id',$funcionario->pais_morada)->
-                    first()->descricao."</td></tr>";
-            $html = $html."<tr><td>Localidade (endereco): </td><td>".$funcionario->localidade."</td></tr>";
-            $html = $html."<tr><td>Morada: </td><td>".$funcionario->morada."</td></tr>";
-                        
-            $html = $html."<tr><td>Celular: </td><td>".$funcionario->celular."</td></tr>";
-            $html = $html."<tr><td>Celular alternativo: </td><td>".$funcionario->celular_alternativo."</td></tr>";
-            $html = $html."<tr><td>Email: </td><td>".$funcionario->email."</td></tr>";
-            
-            
-            
+         
+        if($tipo=="reformado")
+        {
+            $html = $html.'</td></tr><tr><td><i>Valor da Pensao de Reforma</i><br><br>Pensao MZM <u>'.$funcionario_reformado->pensao_reforma_mzn;
+            $html = $html.'</u><br>Pensao USD <u>'.$funcionario_reformado->pensao_reforma_usd.'</u>';
+        }
+        
+        $html = $html.'<tr><td colspan="2"><i>EMAIL</i><br>'.$funcionario->email.'</td></tr>';
             
         if($tipo=="efectivo")
         {
-            $html = $html."<tr><td>Numero de INSS: </td><td>".$funcionario_efectivo->numero_inss."</td></tr>";
-            $html=$html."<tr><td>Tamanho camisete: </td><td>".  Tamanho_letra::where('id',$funcionario_efectivo->tamanho_camisete)->
-                    first()->descricao."</td></tr>";
-            $html=$html."<tr><td>Tamanho botas: </td><td>". Tamanho_numero::where('id',$funcionario_efectivo->tamanho_botas)->
-                    first()->descricao."</td></tr>";
-            $html=$html."<tr><td>Tamanho fato: </td><td>".  Tamanho_letra::where('id',$funcionario_efectivo->tamanho_fato)->
-                    first()->descricao."</td></tr>";
-            $html=$html."<tr><td>Tamanho capacete: </td><td>".  Tamanho_numero::where('id',$funcionario_efectivo->tamanho_capacete)->
-                    first()->descricao."</td></tr>";
-            $html=$html."<tr><td>Tipo sanguineo: </td><td>". Tipo_sanguineo::where('id',$funcionario_efectivo->tipo_sanguineo)->
-                    first()->descricao."</td></tr>";
-            $html=$html."<tr><td>Tipo carta de conducao: </td><td>". Tipo_carta_conducao::where('id',$funcionario_efectivo->tipo_carta_conducao)->
-                    first()->descricao."</td></tr>";
-            $html = $html."<tr><td>Numero de carta de conducao: </td><td>".$funcionario_efectivo->numero_carta_conducao."</td></tr>";
-            $html=$html."</table>";
-        }
-        if($tipo=="reformado")
-        {
-            $html = $html."<tr><td>Pensao em meticais: </td><td>".$funcionario_reformado->pensao_reforma_mzn."</td></tr>";
-            $html = $html."<tr><td>Pensao em dolares: </td><td>".$funcionario_reformado->pensao_reforma_usd."</td></tr>";
-            $html=$html."</table>";
-        }
+            $html = $html.'<tr><td><i>NUMERO DE INSCRICAO INSS</i><br>'.$funcionario_efectivo->numero_inss.'</td>';
+            $html = $html.'<td><i>TIPO SANGUINEO</i><br>'.  Tipo_sanguineo::where('id',$funcionario_efectivo->tipo_sanguineo)->
+                    first()->descricao.'</td></tr>';
+            $html = $html.'<tr><td><i>TIPO DE CARTA DE CONDUCAO</i><br>'.  Tipo_carta_conducao::where('id',$funcionario_efectivo->tipo_carta_conducao)->
+                    first()->descricao.'</td>';
+            $html = $html.'<td><i>NUMERO DE CARTA DE CONDUCAO</i><br>'.$funcionario_efectivo->numero_carta_conducao.'</td></tr>';
+            $html = $html.'<tr><td colspan="2">TAMANHO EQUIPAMENTO<br><i>Camisete</i> '.Tamanho_letra::where('id',$funcionario_efectivo->tamanho_camisete)->first()->descricao;
+            $html = $html.' <i>Botas</i> '.Tamanho_numero::where('id',$funcionario_efectivo->tamanho_botas)->
+                    first()->descricao;
+            $html = $html.' <i>Fato de Operacoes</i> '.Tamanho_letra::where('id',$funcionario_efectivo->tamanho_fato)->
+                    first()->descricao;
+            $html = $html.' <i>Capacete</i> '.Tamanho_numero::where('id',$funcionario_efectivo->tamanho_capacete)->
+                    first()->descricao.'</td></tr>';
+        }   
+           
+            
+        $html = $html.'</table><table>';
+
         if($tipo=="pensionista")
         {
             $html = $html."<tr><td>Pensao em meticais: </td><td>".$funcionario_pensionista->pensao_mzn."</td></tr>";
@@ -233,12 +241,12 @@ class ColaboradorController extends Controller
            'codigo' => 'required|exists:funcionario_existente,codigo|unique:funcionarios,codigo',
            'nome_completo' =>'required|max:75',
            'numero_documento' =>'required|max:20',
-           'nuit' =>'required|digits_between:5,9',
+           'nuit' =>'required|digits:9',
            'numero_conta_mzn' =>'required|digits_between:7,21',
            'celular' =>'required|digits_between:8,13',
            'morada' =>'required',
            'email' =>'required|email',
-           'numero_inss' =>'digits_between:5,11',
+           'numero_inss' =>'digits:9',
            //'codigo' => 'required|max:11|digits'
        ]);
        
@@ -297,12 +305,11 @@ class ColaboradorController extends Controller
            'codigo' => 'required|exists:funcionario_existente,codigo|unique:funcionarios,codigo',
            'nome_completo' =>'required|max:75',
            'numero_documento' =>'required|max:20',
-           'nuit' =>'required|digits_between:5,9',
+           'nuit' =>'required|digits:9',
            'numero_conta_mzn' =>'required|digits_between:7,21',
            'celular' =>'required|digits_between:8,13',
            'morada' =>'required',
            'email' =>'required|email',
-           'numero_inss' =>'digits_between:5,11',
            'pensao_reforma_mzn' =>'required',
            //'codigo' => 'required|max:11|digits'
        ]);
@@ -356,7 +363,7 @@ class ColaboradorController extends Controller
            'codigo' => 'required|exists:funcionario_existente,codigo|unique:funcionarios,codigo',
            'nome_completo' =>'required|max:75',
            'numero_documento' =>'required|max:20',
-           'nuit' =>'required|digits_between:5,9',
+           'nuit' =>'required|digits:9',
            'numero_conta_mzn' =>'required|digits_between:7,21',
            'celular' =>'required|digits_between:8,13',
            'morada' =>'required',

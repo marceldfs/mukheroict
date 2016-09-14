@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Tipo_utilizador;
-
+use Auth;
 
 class UserController extends Controller
 {
@@ -59,7 +59,7 @@ class UserController extends Controller
     
     public function mostrar(Request $request, User $utilizador)
     {
-        return view('layout.form_actualizar_utilizador', [
+        return view('pages.form_actualizar_utilizador', [
             'utilizador' => $utilizador,
             'tipo_utilizadores' => Tipo_utilizador::pluck('descricao', 'id'),
             'tipo_utilizador' => $utilizador->tipo_utilizador,
@@ -80,6 +80,53 @@ class UserController extends Controller
         
         $utilizador->save();
         return redirect('/utilizadores');
+    }
+    
+    public function mudarSenha(Request $request)
+    {
+        $utilizador=Auth::user();
+        return view('pages.form_mudar_senha',[
+            'utilizador' => $utilizador,
+            ]);
+    }
+    
+    public function salvarSenha(Request $request)
+    {
+        $this->validate($request, [
+           'password' => 'required|min:6|confirmed',
+        ]);
+        
+        $utilizador=Auth::user();
+        $utilizador->password=bcrypt($request->password);
+        $utilizador->save();
+        return redirect('/');
+    }
+    
+    public function criarUtilizador(Request $request)
+    {
+        return view('pages.form_criar_utilizador',[
+            'tipo_utilizadores' => Tipo_utilizador::pluck('descricao', 'id'),
+        ]);
+    }
+    
+    public function salvarUtilizador(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:6|confirmed',
+        ]);
+        
+        $utilizador=new User();
+        $utilizador->name=$request->name;
+        $utilizador->email=$request->email;
+        $utilizador->password=bcrypt($request->password);
+        $utilizador->active=1;
+        $utilizador->tipo_utilizador=$request->input('tipo_utilizador');
+        
+        $utilizador->save();
+
+       return redirect('/utilizadores');
     }
 }
 

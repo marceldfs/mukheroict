@@ -25,14 +25,14 @@
             </div>	
             <div class="form-group col-lg-6 pull-right">
                 {!! Form::label('llocalidade','Localidade:', ['for' => 'localidade'])  !!}
-                {!! Form::text('localidade',null,['class' => 'form-control ', 'id' => 'localidade', 'placeholder' => '']) !!}
+                {!! Form::text('localidade',null,['class' => 'form-control ', 'id' => 'localidade', 'placeholder' => '', 'readonly' => 'true']) !!}
             </div>
         </div>
         <div class="form-horizontal">
             <!--Celulares-->
             <div class="form-group col-lg-6 {{ $errors->has('celular') ? ' has-error' : '' }}">
                 {!! Form::label('lcel','Numero de Celular:', ['class' => 'label-required','for' => 'celular'])  !!}
-                {!! Form::text('celular',null,['class' => 'form-control ', 'id' => 'celular', 'type' => 'number','placeholder' => 'n&atilde;o use letras']) !!}
+                {!! Form::text('celular',null,['class' => 'form-control ', 'id' => 'celular', 'type' => 'number','placeholder' => 'n&atilde;o use letras', 'readonly' => 'true']) !!}
                 @if ($errors->has('celular'))
                 <span class="help-block">
                     <strong>{{ $errors->first('celular') }}</strong>
@@ -41,11 +41,12 @@
             </div>	
             <div class="form-group col-lg-6 pull-right">
                 {!! Form::label('ltel','Numero de Celular alternativo:', ['for' => 'celular_alternativo'])  !!}
-                {!! Form::text('celular_alternativo',null,['class' => 'form-control ', 'id' => 'celular_alternativo', 'type' => 'number','placeholder' => 'n&atilde;o use letras']) !!}
+                {!! Form::text('celular_alternativo',null,['class' => 'form-control ', 'id' => 'celular_alternativo', 'type' => 'number',
+                'placeholder' => 'n&atilde;o use letras', 'readonly' => 'true']) !!}
             </div>	
             <div class="form-group col-lg-12 {{ $errors->has('morada') ? ' has-error' : '' }}"> 
                 {!! Form::label('lmorada','Morada:', ['class' => 'label-required','for' => 'morada'])  !!}
-                {!! Form::text('morada',null,['class' => 'form-control ', 'id' => 'morada']) !!}
+                {!! Form::text('morada',null,['class' => 'form-control ', 'id' => 'morada', 'readonly' => 'true']) !!}
                 @if ($errors->has('morada'))
                 <span class="help-block">
                     <strong>{{ $errors->first('morada') }}</strong>
@@ -54,7 +55,7 @@
             </div>
             <div class="form-group col-lg-12 {{ $errors->has('email') ? ' has-error' : '' }}"> 									
                 {!! Form::label('lemail','Email:', ['class' => 'label-required','for' => 'email'])  !!}
-                {!! Form::text('email',null,['class' => 'form-control ', 'id' => 'email', 'type'=>'email','placeholder' => 'email@edm.co.mz']) !!}
+                {!! Form::text('email',null,['class' => 'form-control ', 'id' => 'email', 'type'=>'email','placeholder' => 'email@edm.co.mz', 'readonly' => 'true']) !!}
                 @if ($errors->has('email'))
                 <span class="help-block">
                     <strong>{{ $errors->first('email') }}</strong>

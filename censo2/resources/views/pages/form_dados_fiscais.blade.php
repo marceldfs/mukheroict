@@ -6,7 +6,7 @@
     <div class="panel-body">
         <div class="form-group{{ $errors->has('nuit') ? ' has-error' : '' }}">
             {!! Form::label('lnuit','NUIT:', ['class' => 'label-required','for' => 'nuit'])  !!}
-            {!! Form::text('nuit',null,['class' => 'form-control ', 'id' => 'nuit', 'type' => 'number']) !!}
+            {!! Form::text('nuit',null,['class' => 'form-control ', 'id' => 'nuit', 'type' => 'number', 'readonly' => 'true']) !!}
             @if ($errors->has('nuit'))
             <span class="help-block">
                 <strong>{{ $errors->first('nuit') }}</strong>
@@ -16,7 +16,8 @@
             
         <div class="form-group{{ $errors->has('numero_inss') ? ' has-error' : '' }}">
             {!! Form::label('lninss','Numero INSS:', ['for' => 'numero_inss'])  !!}
-            {!! Form::text('numero_inss',null,['class' => 'form-control ', 'id' => 'numero_inss','type' => 'number','placeholder' => 'INSS apenas para trabalhadores inscritos']) !!}
+            {!! Form::text('numero_inss',null,['class' => 'form-control ', 'id' => 'numero_inss','type' => 'number',
+            'placeholder' => 'INSS apenas para trabalhadores inscritos', 'readonly' => 'true']) !!}
                 
             @if ($errors->has('numero_inss'))
             <span class="help-block">
@@ -33,7 +34,7 @@
             </div>	
             <div class="form-group col-lg-6 pull-right{{ $errors->has('numero_documento') ? ' has-error' : '' }}">
                 {!! Form::label('lndoc','Numero do documento:', ['class' => 'label-required','for' => 'numero_documento'])  !!}
-                {!! Form::text('numero_documento',null,['class' => 'form-control ', 'id' => 'numero_documento']) !!}
+                {!! Form::text('numero_documento',null,['class' => 'form-control ', 'id' => 'numero_documento', 'readonly' => 'true']) !!}
                     
                 @if ($errors->has('numero_documento'))
                 <span class="help-block">
@@ -50,7 +51,7 @@
             </div>	
             <div class="form-group col-lg-6 pull-right">
                 {!! Form::label('lncarta','Numero da Carta de Condu&ccedil;&atilde;o:', ['for' => 'numero_carta_conducao'])  !!}
-                {!! Form::text('numero_carta_conducao',null,['class' => 'form-control ', 'id' => 'numero_carta_conducao']) !!}
+                {!! Form::text('numero_carta_conducao',null,['class' => 'form-control ', 'id' => 'numero_carta_conducao', 'readonly' => 'true']) !!}
             </div>
         </div>
     </div>	

@@ -6,7 +6,7 @@
     <div class="panel-body">
         <div class="form-group {{ $errors->has('nuit') ? ' has-error' : '' }}">
             {!! Form::label('lnuit','NUIT:', ['class' => 'label-required','for' => 'nuit'])  !!}
-            {!! Form::text('nuit',null,['class' => 'form-control ', 'id' => 'nuit', 'type' => 'number']) !!}
+            {!! Form::text('nuit',null,['class' => 'form-control ', 'id' => 'nuit', 'type' => 'number', 'readonly' => 'true']) !!}
             @if ($errors->has('nuit'))
             <span class="help-block">
                 <strong>{{ $errors->first('nuit') }}</strong>
