@@ -52,6 +52,10 @@ Route::post("/efectivo2", ['as' => 'efectivo', 'uses' => 'ColaboradorController@
 Route::get("/efectivo3", ['as' => 'efectivo', 'uses' => 'ColaboradorController@formularioEfectivo3']);
 
 Route::post("/efectivo3", ['as' => 'efectivo', 'uses' => 'ColaboradorController@storeFuncionarioEfectivo3']);
+
+Route::get("/efectivo4", ['as' => 'efectivo', 'uses' => 'ColaboradorController@formularioEfectivo4']);
+
+Route::post("/efectivo4", ['as' => 'efectivo', 'uses' => 'ColaboradorController@storeFuncionarioEfectivo4']);
         
 Route::get("/reformado", ['as' => 'reformado', 'uses' => 'ColaboradorController@formularioReformado']);
 

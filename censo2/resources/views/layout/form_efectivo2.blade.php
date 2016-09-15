@@ -10,10 +10,7 @@
             <input type="hidden" id="funcionario_id" name="funcionario_id"  value="{{$funcionario_id}}"/>
             <div class="row">
                 <div class="col-lg-12">               
-                    @include('pages.form_qualificacoes')
-                </div>
-                <div class="col-lg-12">               
-                    @include('pages.form_experienciaEDM')
+                    @include('pages.form_experiencia')
                 </div>
             </div>	
             <div class="row">

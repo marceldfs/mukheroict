@@ -1,111 +1,39 @@
-<div class="panel panel-default mukheroHack12">
-    <div class="panel-heading panel-orange-heading ">
-        <span class="panel-heading-text">Experiencia</span>
+<div class="panel panel-default">
+    <div class="panel-heading panel-orange-heading">
+        <span class="panel-heading-text">Experiencia Profissional (EDM)</span>
     </div>
-    <div class="panel-body ">
-        <div id="table" class="table-editable">            
-            <table class="table">
-                <tr>
-                    <th>Codigo</th>                 
-                    <th>Data de admissão</th>
-                    <th>Data de Integração</th>
-                    <th>Situação</th>
-                    <th>Carreira</th>
-                     <th>Cargo</th>
-                    <th>Profissão</th>
-                     <th>Direcão</th>
-                    <th>Departamento</th>
-                </tr>
-                <tr>
-                    <td contenteditable="true"></td>
-                    <td contenteditable="true">{!! Form::date('name', \Carbon\Carbon::now()) !!}</td>
-                    <td contenteditable="true">{!! Form::date('name', \Carbon\Carbon::now()) !!}</td>
-                    <td contenteditable="true">{!! Form::select('situacao', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'sintituicao']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('carreira', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'scertificado']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('situacao', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'sintituicao']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('Cargo', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'scertificado']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('Profissão', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'sintituicao']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('Departamento', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'scertificado']) !!}</td>
-                </tr>
-                         <tr>
-                    <td contenteditable="true"></td>
-                    <td contenteditable="true">{!! Form::date('name', \Carbon\Carbon::now()) !!}</td>
-                    <td contenteditable="true">{!! Form::date('name', \Carbon\Carbon::now()) !!}</td>
-                    <td contenteditable="true">{!! Form::select('situacao', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'sintituicao']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('carreira', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'scertificado']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('situacao', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'sintituicao']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('Cargo', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'scertificado']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('Profissão', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'sintituicao']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('Departamento', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'scertificado']) !!}</td>
-                </tr>
-                         <tr>
-                    <td contenteditable="true"></td>
-                    <td contenteditable="true">{!! Form::date('name', \Carbon\Carbon::now()) !!}</td>
-                    <td contenteditable="true">{!! Form::date('name', \Carbon\Carbon::now()) !!}</td>
-                    <td contenteditable="true">{!! Form::select('situacao', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'sintituicao']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('carreira', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'scertificado']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('situacao', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'sintituicao']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('Cargo', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'scertificado']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('Profissão', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'sintituicao']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('Departamento', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'scertificado']) !!}</td>
-                </tr>
-                         <tr>
-                    <td contenteditable="true"></td>
-                    <td contenteditable="true">{!! Form::date('name', \Carbon\Carbon::now()) !!}</td>
-                    <td contenteditable="true">{!! Form::date('name', \Carbon\Carbon::now()) !!}</td>
-                    <td contenteditable="true">{!! Form::select('situacao', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'sintituicao']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('carreira', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'scertificado']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('situacao', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'sintituicao']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('Cargo', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'scertificado']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('Profissão', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'sintituicao']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('Departamento', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'scertificado']) !!}</td>
-                </tr>
-                        <tr>
-                    <td contenteditable="true"></td>
-                    <td contenteditable="true">{!! Form::date('name', \Carbon\Carbon::now()) !!}</td>
-                    <td contenteditable="true">{!! Form::date('name', \Carbon\Carbon::now()) !!}</td>
-                    <td contenteditable="true">{!! Form::select('situacao', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'sintituicao']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('carreira', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'scertificado']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('situacao', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'sintituicao']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('Cargo', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'scertificado']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('Profissão', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'sintituicao']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('Departamento', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'scertificado']) !!}</td>
-                </tr>
-                         <tr>
-                    <td contenteditable="true"></td>
-                    <td contenteditable="true">{!! Form::date('name', \Carbon\Carbon::now()) !!}</td>
-                    <td contenteditable="true">{!! Form::date('name', \Carbon\Carbon::now()) !!}</td>
-                    <td contenteditable="true">{!! Form::select('situacao', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'sintituicao']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('carreira', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'scertificado']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('situacao', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'sintituicao']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('Cargo', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'scertificado']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('Profissão', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'sintituicao']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('Departamento', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'scertificado']) !!}</td>
-                </tr>
-                        <tr>
-                    <td contenteditable="true"></td>
-                    <td contenteditable="true">{!! Form::date('name', \Carbon\Carbon::now()) !!}</td>
-                    <td contenteditable="true">{!! Form::date('name', \Carbon\Carbon::now()) !!}</td>
-                    <td contenteditable="true">{!! Form::select('situacao', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'sintituicao']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('carreira', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'scertificado']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('situacao', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'sintituicao']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('Cargo', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'scertificado']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('Profissão', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'sintituicao']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('Departamento', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'scertificado']) !!}</td>
-                </tr>
-                        <tr>
-                    <td contenteditable="true"></td>
-                    <td contenteditable="true">{!! Form::date('name', \Carbon\Carbon::now()) !!}</td>
-                    <td contenteditable="true">{!! Form::date('name', \Carbon\Carbon::now()) !!}</td>
-                    <td contenteditable="true">{!! Form::select('situacao', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'sintituicao']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('carreira', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'scertificado']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('situacao', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'sintituicao']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('Cargo', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'scertificado']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('Profissão', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'sintituicao']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('Departamento', [ 'S', 'L','XL'], null, ['class' => 'form-control ', 'id' => 'scertificado']) !!}</td>
-                </tr>           
-            </table>
+    <div class="panel-body">
+        <div class="form-group">
+            {!! Form::label('ldata_admissao','Data de admissao:', ['class' => 'label-required','for' => 'data_admissao' ]) !!}	
+            {!! Form::date('data_admissao', \Carbon\Carbon::now()) !!}
         </div>
-    </div>				    	
-</div>	
-
+        <div class="form-group">
+            {!! Form::label('ldata_integracao','Data de integracao:', ['class' => 'label-required','for' => 'data_integracao' ]) !!}	
+            {!! Form::date('data_integracao', \Carbon\Carbon::now()) !!}
+        </div>
+        <div class="form-group">									
+            {!! Form::label('lsituacao','Situacao:', ['class' => 'label-required','for' => 'situacao' ]) !!}								    
+            {!! Form::select('situacao', $situacao, null, ['class' => 'form-control ', 'id' => 'situacao']) !!}			    										
+        </div>
+        <div class="form-group">
+            {!! Form::label('lcarreira','Carreira:', ['for' => 'carreira' ]) !!}								    
+            {!! Form::select('carreira', $carreira, null, ['class' => 'form-control ', 'id' => 'carreira']) !!}			    										
+        </div>
+        <div class="form-group">
+            {!! Form::label('lcargo','Cargo:', ['for' => 'cargo' ]) !!}								    
+            {!! Form::select('cargo', $cargo, null, ['class' => 'form-control ', 'id' => 'cargo']) !!}			    										
+        </div>
+        <div class="form-group">
+            {!! Form::label('lprofissao','Profissao:', ['for' => 'profissao' ]) !!}								    
+            {!! Form::select('profissao', $profissao, null, ['class' => 'form-control ', 'id' => 'profissao']) !!}			    										
+        </div>
+        <div class="form-group">
+            {!! Form::label('ldireccao','Direccao(actual):', ['for' => 'direccao' ]) !!}								    
+            {!! Form::select('direccao', $direccao, null, ['class' => 'form-control ', 'id' => 'direccao']) !!}			    										
+        </div>
+        <div class="form-group">
+            {!! Form::label('ldepartamento','Departamento(actual):', ['for' => 'departamento' ]) !!}								    
+            {!! Form::select('departamento', $departamento, null, ['class' => 'form-control ', 'id' => 'departamento']) !!}			    										
+        </div>
+    </div>
+</div>  

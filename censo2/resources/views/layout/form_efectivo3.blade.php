@@ -10,12 +10,12 @@
             <input type="hidden" id="funcionario_id" name="funcionario_id"  value="{{$funcionario_id}}"/>
             <div class="row">
                 <div class="col-lg-12">               
-                    @include('pages.form_experiencia_outra')
+                    @include('pages.form_qualificacoes')
                 </div>
                 <div class="col-lg-12">               
-                    @include('pages.form_familiares')
+                    @include('pages.form_experienciaEDM')
                 </div>
-            </div>		
+            </div>	
             <div class="row">
                 <div class="col-lg-12 ">
                     {!!Form::submit('Seguinte',['class' => 'btn btn-warning pull-right']); !!}

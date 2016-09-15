@@ -33,6 +33,7 @@ use App\Cargo;
 use App\Profissao;
 use App\Qualificacao;
 use App\Experiencia_edm;
+use App\Historico_experiencia_edm;
 use App\Historico_experiencia_outra;
 use App;
 use Input;
@@ -518,18 +519,47 @@ class ColaboradorController extends Controller
     {
        return view('layout.form_efectivo2', [
            'funcionario_id' => $request->funcionario_id,
+           'situacao' => Situacao_experiencia::pluck('descricao', 'id'),
+           'carreira' => Carreira::pluck('descricao', 'id'),
+           'direccao' => Direccao::pluck('descricao', 'id'),
+           'departamento' => Departamento::pluck('descricao', 'id'),
+           'cargo' => Cargo::pluck('descricao', 'id'),
+           'profissao' => Profissao::pluck('descricao', 'id'),
+        ]);
+    }
+    public function storeFuncionarioEfectivo2(Request $request)
+    {
+        $experiencia_edm = New Experiencia_edm;
+        $experiencia_edm->funcionario_id=$request->funcionario_id;
+        $experiencia_edm->data_admissao=$request->data_admissao;
+        $experiencia_edm->data_integraccao=$request->data_integracao;
+        $experiencia_edm->carreira=$request->input('carreira');
+        $experiencia_edm->situacao=$request->input('situacao');
+        $experiencia_edm->direccao=$request->input('direccao');
+        $experiencia_edm->departamento=$request->input('departamento');
+        $experiencia_edm->cargo=$request->input('cargo');
+        $experiencia_edm->profissao=$request->input('profissao');
+        $experiencia_edm->save();
+        
+        $id=$request->funcionario_id;
+        
+        return redirect('/efectivo3?funcionario_id='.$id);
+    }
+    
+    public function formularioEfectivo3(Request $request)
+    {
+       return view('layout.form_efectivo3', [
+           'funcionario_id' => $request->funcionario_id,
            'instituicao' => Instituicao_ensino::pluck('descricao', 'id'),
            'certificado' => Certificado_ensino::pluck('descricao', 'id'),
            'direccao' => Direccao::pluck('descricao', 'id'),
-           'situacao' => Situacao_experiencia::pluck('descricao', 'id'),
-           'carreira' => Carreira::pluck('descricao', 'id'),
            'departamento' => Departamento::pluck('descricao', 'id'),
            'cargo' => Cargo::pluck('descricao', 'id'),
            'profissao' => Profissao::pluck('descricao', 'id'),
         ]);
     }
     
-    public function storeFuncionarioEfectivo2(Request $request)
+    public function storeFuncionarioEfectivo3(Request $request)
     {   
         $qualificacao;
         if($request->input('salvarQualificacao1')==true)
@@ -592,89 +622,79 @@ class ColaboradorController extends Controller
             $qualificacao->save();
         }
         
-        $experiencia_edm;
+        $historico_edm;
         if($request->input('salvarExperienciaEDM1')==true)
         {
-            $experiencia_edm = New Experiencia_edm;
-            $experiencia_edm->funcionario_id=$request->funcionario_id;
-            $experiencia_edm->data_admissao=$request->data_admissao1;
-            $experiencia_edm->data_integraccao=$request->data_integracao1;
-            $experiencia_edm->situacao=$request->input('situacao1');
-            $experiencia_edm->direccao=$request->input('direccao1');
-            $experiencia_edm->carreira=$request->input('carreira1');
-            $experiencia_edm->departamento=$request->input('departamento1');
-            $experiencia_edm->cargo=$request->input('cargo1');
-            $experiencia_edm->profissao=$request->input('profissao1');
-            $experiencia_edm->save();
+            $historico_edm = New Historico_experiencia_edm;
+            $historico_edm->funcionario_id=$request->funcionario_id;
+            $historico_edm->data_inicio=$request->data_inicio1;
+            $historico_edm->data_fim=$request->data_fim1;
+            $historico_edm->direccao=$request->input('direccao1');
+            $historico_edm->departamento=$request->input('departamento1');
+            $historico_edm->cargo=$request->input('cargo1');
+            $historico_edm->profissao=$request->input('profissao1');
+            $historico_edm->save();
         }
         
         if($request->input('salvarExperienciaEDM2')==true)
         {
-            $experiencia_edm = New Experiencia_edm;
-            $experiencia_edm->funcionario_id=$request->funcionario_id;
-            $experiencia_edm->data_admissao=$request->data_admissao2;
-            $experiencia_edm->data_integraccao=$request->data_integracao2;
-            $experiencia_edm->situacao=$request->input('situacao2');
-            $experiencia_edm->direccao=$request->input('direccao2');
-            $experiencia_edm->carreira=$request->input('carreira2');
-            $experiencia_edm->departamento=$request->input('departamento2');
-            $experiencia_edm->cargo=$request->input('cargo2');
-            $experiencia_edm->profissao=$request->input('profissao2');
-            $experiencia_edm->save();
+            $historico_edm = New Historico_experiencia_edm;
+            $historico_edm->funcionario_id=$request->funcionario_id;
+            $historico_edm->data_inicio=$request->data_inicio2;
+            $historico_edm->data_fim=$request->data_fim2;
+            $historico_edm->direccao=$request->input('direccao2');
+            $historico_edm->departamento=$request->input('departamento2');
+            $historico_edm->cargo=$request->input('cargo2');
+            $historico_edm->profissao=$request->input('profissao2');
+            $historico_edm->save();
         }
         
         if($request->input('salvarExperienciaEDM3')==true)
         {
-            $experiencia_edm = New Experiencia_edm;
-            $experiencia_edm->funcionario_id=$request->funcionario_id;
-            $experiencia_edm->data_admissao=$request->data_admissao3;
-            $experiencia_edm->data_integraccao=$request->data_integracao3;
-            $experiencia_edm->situacao=$request->input('situacao3');
-            $experiencia_edm->direccao=$request->input('direccao3');
-            $experiencia_edm->carreira=$request->input('carreira3');
-            $experiencia_edm->departamento=$request->input('departamento3');
-            $experiencia_edm->cargo=$request->input('cargo3');
-            $experiencia_edm->profissao=$request->input('profissao3');
-            $experiencia_edm->save();
+            $historico_edm = New Historico_experiencia_edm;
+            $historico_edm->funcionario_id=$request->funcionario_id;
+            $historico_edm->data_inicio=$request->data_inicio3;
+            $historico_edm->data_fim=$request->data_fim3;
+            $historico_edm->direccao=$request->input('direccao3');
+            $historico_edm->departamento=$request->input('departamento3');
+            $historico_edm->cargo=$request->input('cargo3');
+            $historico_edm->profissao=$request->input('profissao3');
+            $historico_edm->save();
         }
         
         if($request->input('salvarExperienciaEDM4')==true)
         {
-            $experiencia_edm = New Experiencia_edm;
-            $experiencia_edm->funcionario_id=$request->funcionario_id;
-            $experiencia_edm->data_admissao=$request->data_admissao4;
-            $experiencia_edm->data_integraccao=$request->data_integracao4;
-            $experiencia_edm->situacao=$request->input('situacao4');
-            $experiencia_edm->direccao=$request->input('direccao4');
-            $experiencia_edm->carreira=$request->input('carreira4');
-            $experiencia_edm->departamento=$request->input('departamento4');
-            $experiencia_edm->cargo=$request->input('cargo4');
-            $experiencia_edm->profissao=$request->input('profissao4');
-            $experiencia_edm->save();
+            $historico_edm = New Historico_experiencia_edm;
+            $historico_edm->funcionario_id=$request->funcionario_id;
+            $historico_edm->data_inicio=$request->data_inicio4;
+            $historico_edm->data_fim=$request->data_fim4;
+            $historico_edm->direccao=$request->input('direccao4');
+            $historico_edm->departamento=$request->input('departamento4');
+            $historico_edm->cargo=$request->input('cargo4');
+            $historico_edm->profissao=$request->input('profissao4');
+            $historico_edm->save();
         }
         
         if($request->input('salvarExperienciaEDM5')==true)
         {
-            $experiencia_edm = New Experiencia_edm;
-            $experiencia_edm->funcionario_id=$request->funcionario_id;
-            $experiencia_edm->data_admissao=$request->data_admissao5;
-            $experiencia_edm->data_integraccao=$request->data_integracao5;
-            $experiencia_edm->situacao=$request->input('situacao5');
-            $experiencia_edm->direccao=$request->input('direccao5');
-            $experiencia_edm->carreira=$request->input('carreira5');
-            $experiencia_edm->departamento=$request->input('departamento5');
-            $experiencia_edm->cargo=$request->input('cargo5');
-            $experiencia_edm->profissao=$request->input('profissao5');
-            $experiencia_edm->save();
+            $historico_edm = New Historico_experiencia_edm;
+            $historico_edm->funcionario_id=$request->funcionario_id;
+            $historico_edm->data_inicio=$request->data_inicio5;
+            $historico_edm->data_fim=$request->data_fim5;
+            $historico_edm->direccao=$request->input('direccao5');
+            $historico_edm->departamento=$request->input('departamento5');
+            $historico_edm->cargo=$request->input('cargo5');
+            $historico_edm->profissao=$request->input('profissao5');
+            $historico_edm->save();
         }
         $id=$request->funcionario_id;
         
-        return redirect('/efectivo3?funcionario_id='.$id);
+        return redirect('/efectivo4?funcionario_id='.$id);
     }
     
-    public function formularioEfectivo3(Request $request)
+    public function formularioEfectivo4(Request $request)
     {
-       return view('layout.form_efectivo3', [
+       return view('layout.form_efectivo4', [
            'funcionario_id' => $request->funcionario_id,
            'instituicao' => Instituicao_ensino::pluck('descricao', 'id'),
            'cargo' => Cargo::pluck('descricao', 'id'),
@@ -684,7 +704,7 @@ class ColaboradorController extends Controller
         ]);
     }
     
-    public function storeFuncionarioEfectivo3(Request $request)
+    public function storeFuncionarioEfectivo4(Request $request)
     {   
         $familiar;
         if($request->nome1!="")
