@@ -151,52 +151,66 @@ class ColaboradorController extends Controller
             $funcionario_pensionista=Funcionario_pensionista::where('funcionario_id',$id)->first();
         }
         
-            $html = $html.'<p style="text-align:center;"><i><u>Dados Pessoais</u></i></p>';
-            $html = $html.'<table border="1" style="text-align:center;margin: 0 auto;" width="80%" bgcolor="#F7D358">';
-            $html = $html.'<tr><td colspan="2"><i>NOMECOMPLETO</i><br>'.$funcionario->nome_completo.'</td></tr>';
-            $html = $html.'<tr><td><i>PROVINCIA(Endereco)</i><br>'.Provincia::where('id',$funcionario->provincia_morada)->
+        $html = $html.'<p style="text-align:center;"><i><u>Dados Pessoais</u></i></p>';
+        $html = $html.'<table border="1" style="text-align:center;margin: 0 auto;" width="80%" bgcolor="#F7D358">';
+        $html = $html.'<tr><td colspan="2"><i>NOMECOMPLETO</i><br>'.$funcionario->nome_completo.'</td></tr>';
+        $html = $html.'<tr><td><i>PROVINCIA(Endereco)</i><br>'.Provincia::where('id',$funcionario->provincia_morada)->
                     first()->descricao.'</td>';
-            $html = $html.'<td><i>DISTRITO(Endereco)</i><br>'.Distrito::where('id',$funcionario->distrito_morada)->
+        $html = $html.'<td><i>DISTRITO(Endereco)</i><br>'.Distrito::where('id',$funcionario->distrito_morada)->
                     first()->descricao.'</td></tr>';
-            $html = $html.'<tr><td><i>PAIS(Endereco)</i><br>'.Pais::where('id',$funcionario->pais_morada)->
+        $html = $html.'<tr><td><i>PAIS(Endereco)</i><br>'.Pais::where('id',$funcionario->pais_morada)->
                     first()->descricao.'</td>';
-            $html = $html.'<td><i>LOCALIDADE(Endereco)</i><br>'.$funcionario->localidade.'</td></tr>';
-            $html = $html.'<tr><td colspan="2"><i>RUA/AVENIDA (Endereco)</i><br>'.$funcionario->morada.'</td></tr>';
-            $html = $html.'<tr><td><i>ESTADO CIVIL</i><br>'.Estado_civil::where('id',$funcionario->estado_civil)->
+        $html = $html.'<td><i>LOCALIDADE(Endereco)</i><br>'.$funcionario->localidade.'</td></tr>';
+        $html = $html.'<tr><td colspan="2"><i>RUA/AVENIDA (Endereco)</i><br>'.$funcionario->morada.'</td></tr>';
+        $html = $html.'<tr><td><i>ESTADO CIVIL</i><br>'.Estado_civil::where('id',$funcionario->estado_civil)->
                     first()->descricao.'</td>';
-            $html = $html.'<td><i>GENERO</i><br>'.Genero::where('id',$funcionario->genero)->
+        $html = $html.'<td><i>GENERO</i><br>'.Genero::where('id',$funcionario->genero)->
                     first()->descricao.'</td></tr>';
-            $html = $html.'<tr><td colspan="2"><i>DATA DE NASCIMENTO</i><br>'.$funcionario->data_nascimento.'</td></tr>';
-            $html = $html.'<tr><td><i>TIPO DE DOC. IDENTIFICACAO</i><br>'.Tipo_documento::where('id',$funcionario->tipo_documento)->
+        $html = $html.'<tr><td colspan="2"><i>DATA DE NASCIMENTO</i><br>'.$funcionario->data_nascimento.'</td></tr>';
+        $html = $html.'<tr><td><i>TIPO DE DOC. IDENTIFICACAO</i><br>'.Tipo_documento::where('id',$funcionario->tipo_documento)->
                     first()->descricao.'</td>';
-            $html = $html.'<td><i>NUMERO DO DOCUMENTO</i><br>'.$funcionario->numero_documento.'</td></tr>';
-            $html = $html.'<tr><td colspan="2"><i>NUIT</i><br>'.$funcionario->nuit.'</td></tr>';
-            $html = $html.'<tr><td><i>TELEFONE/CELULAR</i><br><br><i>Numero Principal</i><br>'.$funcionario->celular;
-            $html = $html.'<br><br><i>Numero Alternativo</i><br>'.$funcionario->celular_alternativo;
-        
-            $html = $html.'</td>';
-        
-            if($tipo=="efectivo")
-            {
-                $html = $html.'<td rowspan="1"><i>LOCAIS DE PAGAMENTO</i><br><br>METICAL<br>';
-            }
-            else
-            {
-                $html = $html.'<td rowspan="2"><i>LOCAIS DE PAGAMENTO</i><br><br>METICAL<br>';
-            }
+        $html = $html.'<td><i>NUMERO DO DOCUMENTO</i><br>'.$funcionario->numero_documento.'</td></tr>';
+        $html = $html.'<tr><td colspan="2"><i>NUIT</i><br>'.$funcionario->nuit.'</td></tr>';
             
-            $html = $html.'Banco <u>'.Banco::where('id',$funcionario->banco_mzn)->first()->descricao.'</u><br>';
-            $html = $html.'Conta <u>'.$funcionario->numero_conta_mzn.'</u><br>';
-            $html = $html.'NIB '.$funcionario->nib_mzn.'<br><br>';
-            $html = $html.'USD<br>Banco <u>'.Banco::where('id',$funcionario->banco_usd)->first()->descricao.'</u><br>';
-            $html = $html.'Conta <u>'.$funcionario->numero_conta_usd.'</u><br>';
-            $html = $html.'NIB '.$funcionario->nib_usd.'<br></td></tr>';
+        if($tipo=="pensionista")
+        {
+            $html = $html.'<tr><td colspan="2"><i>NOME DO EX-FAMILIAR NA EMPRESA</i><br>'.$funcionario_pensionista->nome_ex_familiar.'</td></tr>';
+            $html = $html.'<tr><td><i>PARENTESCO DO EX-FAMILIAR NA EMPRESA</i><br>'.Parentesco::where('id',$funcionario_pensionista->parentesco)->
+                    first()->descricao.'</td>';
+            $html = $html.'<td><i>CODIGO DO EX-FAMILIAR</i><br>'.$funcionario_pensionista->codigo_ex_familiar.'</td></tr>';
+        }
             
-         
+        $html = $html.'<tr><td><i>TELEFONE/CELULAR</i><br><br><i>Numero Principal</i><br>'.$funcionario->celular;
+        $html = $html.'<br><br><i>Numero Alternativo</i><br>'.$funcionario->celular_alternativo;
+        
+        $html = $html.'</td>';
+        
+        if($tipo=="efectivo")
+        {
+            $html = $html.'<td rowspan="1"><i>LOCAIS DE PAGAMENTO</i><br><br>METICAL<br>';
+        }
+        else
+        {
+            $html = $html.'<td rowspan="2"><i>LOCAIS DE PAGAMENTO</i><br><br>METICAL<br>';
+        }
+            
+        $html = $html.'Banco <u>'.Banco::where('id',$funcionario->banco_mzn)->first()->descricao.'</u><br>';
+        $html = $html.'Conta <u>'.$funcionario->numero_conta_mzn.'</u><br>';
+        $html = $html.'NIB '.$funcionario->nib_mzn.'<br><br>';
+        $html = $html.'USD<br>Banco <u>'.Banco::where('id',$funcionario->banco_usd)->first()->descricao.'</u><br>';
+        $html = $html.'Conta <u>'.$funcionario->numero_conta_usd.'</u><br>';
+        $html = $html.'NIB '.$funcionario->nib_usd.'<br></td></tr>';
+             
         if($tipo=="reformado")
         {
             $html = $html.'</td></tr><tr><td><i>Valor da Pensao de Reforma</i><br><br>Pensao MZM <u>'.$funcionario_reformado->pensao_reforma_mzn;
             $html = $html.'</u><br>Pensao USD <u>'.$funcionario_reformado->pensao_reforma_usd.'</u>';
+        }
+        
+        if($tipo=="pensionista")
+        {
+            $html = $html.'</td></tr><tr><td><i>Valor da Pensao</i><br><br>Pensao MZM <u>'.$funcionario_pensionista->pensao_mzn;
+            $html = $html.'</u><br>Pensao USD <u>'.$funcionario_pensionista->pensao_usd.'</u>';
         }
         
         $html = $html.'<tr><td colspan="2"><i>EMAIL</i><br>'.$funcionario->email.'</td></tr>';
@@ -218,22 +232,41 @@ class ColaboradorController extends Controller
                     first()->descricao.'</td></tr>';
         }   
            
-            
-        $html = $html.'</table><table>';
-
-        if($tipo=="pensionista")
+        $html = $html.'</table>';
+        
+        $html = $html.'<br><div style="">Confirmo que todos dados preenchidos acima sao fiaveis e verdadeiros</div>';
+        $html = $html.'<div style="text-align:right;page-break-after: always;">____________________________________________</div>';
+        
+        if($tipo == "reformado")
         {
-            $html = $html."<tr><td>Pensao em meticais: </td><td>".$funcionario_pensionista->pensao_mzn."</td></tr>";
-            $html = $html."<tr><td>Pensao em dolares: </td><td>".$funcionario_pensionista->pensao_usd."</td></tr>";
-            $html = $html."<tr><td>Codigo do familiar: </td><td>".$funcionario_pensionista->codigo_ex_familiar."</td></tr>";
-            $html = $html."<tr><td>Nome do familiar: </td><td>".$funcionario_pensionista->nome_ex_familiar."</td></tr>";
-            $html=$html."<tr><td>Parentesco: </td><td>". Parentesco::where('id',$funcionario_pensionista->parentesco)->
-                    first()->descricao."</td></tr>";
-            $html=$html."</table>";
+            $experiencia_edm_reformado = Experiencia_edm_reformado::where('funcionario_id',$funcionario_reformado->id)->first();
+            $direccao = Direccao::where('id',$experiencia_edm_reformado->direccao)->first();
+            $familiares = Familiar::where('funcionario_id',$funcionario_reformado->id)->get();
+            
+            $html = $html.'<div style="text-transform:uppercase">';
+            $html = $html.'<b>Nome </b><u>'.$funcionario_existente->nome.'</u>';
+            $html = $html.'<div style="text-align:right;"> <b>Codigo </b><u>'.$funcionario_existente->codigo.'</u></div>';
+            $html = $html.'<p style="text-align:center;"><i>EXPERI&Ecirc;NCIA PROFISSIONAL(EDM)</i></p>';
+            $html = $html.'<table border="1" style="text-align:center;margin: 0 auto;" width="80%" bgcolor="#F7D358">';
+            $html = $html.'<tr><td colspan="2"><i>DATA DA REFORMA (EDM):</i><br>'.$experiencia_edm_reformado->data_reforma.'</td></tr>';
+            $html = $html.'<tr><td colspan="2"><i>DIRECCAO ONDE REFORMOU:</i><br>'.$direccao->descricao.'</td></tr>';
+            $html = $html.'</table><br>';
+            $html = $html.'<p style="text-align:center;"><i>DADOS FAMILIARES</i></p>';
+            $html = $html.'<p style="text-align:center;"><i><u>AGREGADO FAMILIAR</u></i></p>';
+            $html = $html.'<table border="1" style="text-align:center;margin: 0 auto;" width="80%" >';
+            $html = $html.'<tr bgcolor="#F7D358"><td>NOME</td><td>PARENTESCO</td><td>DATA NASCIMENTO</td><td>CONTACTO</td><td>DOCUMENTO SUPORTE</td></tr>';
+            
+            foreach ($familiares as $familiar)
+            {
+                $html = $html.'<tr><td>'.$familiar->nome.'</td><td>'.Parentesco::where('id',$familiar->parentesco)->first()->descricao.'</td>';
+                $html = $html.'<td>'.$familiar->data_nascimento.'</td><td>'.$familiar->contacto.'</td>';
+                $html = $html.'<td>'.  Tipo_documento::where('id',$familiar->tipo_documento)->first()->descricao.'</td></tr>';
+            }
+            $html = $html.'</table';
         }
                 
         $pdf->loadHTML($html);
-        return $pdf->download('funcionario.pdf');
+        return $pdf->download('funcionario'.$funcionario_existente->codigo.'.pdf');
     }
    
    public function storeFuncionarioEfectivo(Request $request)
@@ -443,7 +476,6 @@ class ColaboradorController extends Controller
         $experienciaEDM_reformado->direccao=$request->input('direccao');
         $experienciaEDM_reformado->save();
         
-        $familiar;
         if($request->nome1!="")
         {
             $familiar = New Familiar;
@@ -834,6 +866,56 @@ class ColaboradorController extends Controller
             'tipo' => 'reformado',
         ]);
     }
+    
+    public function buscaFuncionarios(Request $request)
+    {
+        return view('layout.form_busca_colaboradores', [
+            'funcionarios' => array(),
+        ]);
+    }
+    
+    public function listaFuncionarios(Request $request)
+    {
+        $nome = $request -> nome;
+        $codigo = $request -> codigo;
+        $user = Auth::user();
+        
+        if($nome=="")
+        {
+            $this->validate($request, [
+                'codigo' => 'required|exists:funcionario_existente,codigo|size:6',
+            ]);
+            
+            if($user->tipo_utilizador==3)
+            {
+                $funcionarios = Funcionario::where('codigo', $codigo)
+                        ->where('user_created',$user->id)
+                        ->get();
+            }
+            else
+            {
+                $funcionarios = Funcionario::where('codigo', $codigo)->get();
+            }        
+        }
+        else
+        {
+            if($user->tipo_utilizador==3)
+            {
+                $funcionarios = Funcionario::where('nome_completo', 'like', '%' . $nome . '%')
+                        ->where('user_created',$user->id)
+                        ->get();
+            }
+            else
+            {
+                $funcionarios = Funcionario::where('nome_completo', 'like', '%' . $nome . '%')->get();
+            }     
+        }
+           
+        return view('layout.form_busca_colaboradores', [
+            'funcionarios' => $funcionarios,
+        ]);
+    }
+    
     /**
     * Destroy the given task.
     *

@@ -35,6 +35,7 @@
                                 <li><a href="/efectivo">Efectivo</a></li>
                                 <li><a href="/reformado">Reformados</a></li>
                                 <li><a href="/pensionista">Pensionistas</a></li>
+                                <li><a href="/busca">Busca</a></li>
                                 @if (Auth::guest())
                                 @else
                                 @if (Auth::user()->tipo_utilizador==1 || Auth::user()->tipo_utilizador==2)
@@ -66,7 +67,6 @@
                                 <!-- Authentication Links -->
                                 @if (Auth::guest())
                                 <li><a href="{{ url('/login') }}">Login</a></li>
-                                <li><a href="{{ url('/register') }}">Register</a></li>
                                 @else
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -100,7 +100,7 @@
             <hr class="featurette-divider">
             <footer>
                 <p class="pull-right"><a href="#">Back to top</a></p>
-                <p>&copy; 2016 Eletricidade de Mo&ccedil;ambique, LDA. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+                <p>&copy; 2016 Eletricidade de Mo&ccedil;ambique, LDA. &middot; - Reportar bug (<a href="mailto:herlim.telhano@edm.co.mz">Herlim Telhano</a>) </p>
             </footer>
         </div>
             

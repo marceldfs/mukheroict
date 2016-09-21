@@ -8,7 +8,7 @@
                 <tr>
                     <th>Nome</th>
                     <th>Parentesco</th>
-                    <th>Data de Inicio</th>                    
+                    <th>Data de Nascimento</th>                    
                     <th>Contacto</th>
                     <th>Documento de Suporte</th>
                     <th>Numero documento suporte</th>

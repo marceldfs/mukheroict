@@ -90,3 +90,7 @@ Route::post('/salvarSenha', 'UserController@salvarSenha');
 Route::get('/criaUtilizador', 'UserController@criarUtilizador');
 
 Route::post('/salvarUtilizador', 'UserController@salvarUtilizador');
+
+Route::get('/busca', 'ColaboradorController@buscaFuncionarios');
+
+Route::post('/busca', 'ColaboradorController@listaFuncionarios');
