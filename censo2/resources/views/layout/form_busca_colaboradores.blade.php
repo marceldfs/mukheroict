@@ -56,7 +56,7 @@
                                     <div>{{ $funcionario->nome_completo }}</div>		
                                 </td>		
                                 
-                                <td>		
+                                <!--<td>		
                                     <form action="{{ url('alterarFuncionario/'.$funcionario->id) }}" method="POST">		
                                         {{ csrf_field() }}		
                                         {{ method_field('GET') }}		
@@ -65,7 +65,7 @@
                                             <i class="fa fa-trash"></i> Alterar Funcionario		
                                         </button>		
                                     </form>		
-                                </td>		
+                                </td>	-->	
                             </tr>		
                             @endforeach		
                         </tbody>		
