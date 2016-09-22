@@ -239,7 +239,7 @@ class ColaboradorController extends Controller
         
         if($tipo == "reformado")
         {
-            $experiencia_edm_reformado = Experiencia_edm_reformado::where('funcionario_id',$funcionario_reformado->id)->first();
+            $experiencia_edm_reformado = Experiencia_edm_reformado::where('funcionario_id',$funcionario_reformado->funcionario_id)->first();
             $direccao = Direccao::where('id',$experiencia_edm_reformado->direccao)->first();
             $familiares = Familiar::where('funcionario_id',$funcionario_reformado->id)->get();
             
@@ -251,6 +251,98 @@ class ColaboradorController extends Controller
             $html = $html.'<tr><td colspan="2"><i>DATA DA REFORMA (EDM):</i><br>'.$experiencia_edm_reformado->data_reforma.'</td></tr>';
             $html = $html.'<tr><td colspan="2"><i>DIRECCAO ONDE REFORMOU:</i><br>'.$direccao->descricao.'</td></tr>';
             $html = $html.'</table><br>';
+            $html = $html.'<p style="text-align:center;"><i>DADOS FAMILIARES</i></p>';
+            $html = $html.'<p style="text-align:center;"><i><u>AGREGADO FAMILIAR</u></i></p>';
+            $html = $html.'<table border="1" style="text-align:center;margin: 0 auto;" width="80%" >';
+            $html = $html.'<tr bgcolor="#F7D358"><td>NOME</td><td>PARENTESCO</td><td>DATA NASCIMENTO</td><td>CONTACTO</td><td>DOCUMENTO SUPORTE</td></tr>';
+            
+            foreach ($familiares as $familiar)
+            {
+                $html = $html.'<tr><td>'.$familiar->nome.'</td><td>'.Parentesco::where('id',$familiar->parentesco)->first()->descricao.'</td>';
+                $html = $html.'<td>'.$familiar->data_nascimento.'</td><td>'.$familiar->contacto.'</td>';
+                $html = $html.'<td>'.  Tipo_documento::where('id',$familiar->tipo_documento)->first()->descricao.'</td></tr>';
+            }
+            $html = $html.'</table';
+        }
+        
+        if($tipo=="efectivo")
+        {
+            $qualificacoes = Qualificacao::where('funcionario_id',$funcionario_efectivo->funcionario_id)->get();
+            
+            $html = $html.'<div style="text-transform:uppercase">';
+            $html = $html.'<b>Nome </b><u>'.$funcionario_existente->nome.'</u>';
+            $html = $html.'<div style="text-align:right;"> <b>Codigo </b><u>'.$funcionario_existente->codigo.'</u></div>';
+            $html = $html.'<p style="text-align:center;"><u>Qualifica&Ccedil;&Otilde;es Acad&Eacute;micas e Profissionais</u></p>';
+            $html = $html.'<p style="text-align:center;"><i>HIST&Oacute;RICO DE HABILITA&Ccedil;&Otilde;ES</i></p>';
+            $html = $html.'<table border="1" style="text-align:center;margin: 0 auto;page-break-after: always;" width="80%" >';
+            $html = $html.'<tr bgcolor="#F7D358"><td>INSTITUI&Ccedil;&Atilde;O</td><td>CURSO</td><td>CERTIFICA&Ccedil;&Atilde;O (Grau)</td><td>DATA INICIO</td><td>DATA FIM</td></tr>';
+        
+            foreach ($qualificacoes as $qualificacao)
+            {
+                $html = $html.'<tr><td>'.Instituicao_ensino::where('id',$qualificacao->instituicao)->first()->descricao.'</td>';
+                $html = $html.'<td>'.$qualificacao->curso.'</td>';
+                $html = $html.'<td>'.Certificado_ensino::where('id',$qualificacao->certificado)->first()->descricao.'</td>';
+                $html = $html.'<td>'.$qualificacao->data_inicio.'</td><td>'.$qualificacao->data_fim.'</td></tr>';
+            }
+            $html = $html.'</table';
+            
+            $experiencia_edm = Experiencia_edm::where('funcionario_id',$funcionario_efectivo->funcionario_id)->first();
+            
+            $html = $html.'<div style="text-transform:uppercase">';
+            $html = $html.'<b>Nome </b><u>'.$funcionario_existente->nome.'</u>';
+            $html = $html.'<div style="text-align:right;"> <b>Codigo </b><u>'.$funcionario_existente->codigo.'</u></div>';
+            $html = $html.'<p style="text-align:center;">EXPERI&Ecirc;NCIA PROFISSIONAL(EDM)</p>';
+            $html = $html.'<table border="1" style="text-align:center;margin: 0 auto;page-break-after: always;" bgcolor="#F7D358" width="80%">';
+            $html = $html.'<tr><td><i>DATA DE ADMISS&Atilde;O (EDM)</i><br>'.$experiencia_edm->data_admissao.'</td></tr>';
+            $html = $html.'<tr><td><i>DATA DE INTEGRA&Ccedil;&Atilde;O AO QUADRO EMPRESA</i><br>'.$experiencia_edm->data_integraccao.'</td></tr>';
+            $html = $html.'<tr><td><i>SITUA&Ccedil;&Atilde;O</i><br>'.Situacao_experiencia::where('id',$experiencia_edm->situacao)->first()->descricao.'</td></tr>';
+            $html = $html.'<tr><td><i>CARREIRA</i><br>'.Carreira::where('id',$experiencia_edm->carreira)->first()->descricao.'</td></tr>';
+            $html = $html.'<tr><td><i>CARGO/ FUN&Ccedil;&Atilde;O</i><br>'.  Cargo::where('id',$experiencia_edm->cargo)->first()->descricao.'</td></tr>';
+            $html = $html.'<tr><td><i>PROFISS&Atilde;O</i><br>'.  Profissao::where('id',$experiencia_edm->profissao)->first()->descricao.'</td></tr>';
+            $html = $html.'<tr><td><i>DIREC&Ccedil;&Atilde;O (Actual)</i><br>'. Direccao::where('id',$experiencia_edm->direccao)->first()->descricao.'</td></tr>';
+            $html = $html.'<tr><td><i>DEPARTAMENTO (Actual)</i><br>'. Departamento::where('id',$experiencia_edm->departamento)->first()->descricao.'</td></tr>';
+            $html = $html.'</table';
+            
+            $historico_experiencia_edms = Historico_experiencia_edm::where('funcionario_id',$funcionario_efectivo->funcionario_id)->get();
+            
+            $html = $html.'<div style="text-transform:uppercase">';
+            $html = $html.'<b>Nome </b><u>'.$funcionario_existente->nome.'</u>';
+            $html = $html.'<div style="text-align:right;"> <b>Codigo </b><u>'.$funcionario_existente->codigo.'</u></div>';
+            $html = $html.'<p style="text-align:center;">Hist&Oacute;rico Experiencia Profissional (EDM)</p>';
+            
+            $html = $html.'<table border="1" style="text-align:center;margin: 0 auto;page-break-after: always;" width="80%" >';
+            $html = $html.'<tr bgcolor="#F7D358"><td>DIREC&Ccedil;&Atilde;O</td><td>DEPARTAMENTO</td><td>CARGO / FUN&Ccedil;&Atilde;O</td><td>DATA INICIO</td><td>DATA FIM</td></tr>';
+        
+            foreach ($historico_experiencia_edms as $historico_experiencia_edm)
+            {
+                $html = $html.'<tr><td>'.  Direccao::where('id',$historico_experiencia_edm->direccao)->first()->descricao.'</td>';
+                $html = $html.'<td>'.  Departamento::where('id',$historico_experiencia_edm->departamento)->first()->descricao.'</td>';
+                $html = $html.'<td>'.Cargo::where('id',$historico_experiencia_edm->cargo)->first()->descricao.'</td>';
+                $html = $html.'<td>'.$historico_experiencia_edm->data_inicio.'</td><td>'.$historico_experiencia_edm->data_fim.'</td></tr>';
+            }
+            $html = $html.'</table';
+            
+            $historico_experiencia_outras = Historico_experiencia_outra::where('funcionario_id',$funcionario_efectivo->funcionario_id)->get();
+            
+            $html = $html.'<div style="text-transform:uppercase">';
+            $html = $html.'<b>Nome </b><u>'.$funcionario_existente->nome.'</u>';
+            $html = $html.'<div style="text-align:right;"> <b>Codigo </b><u>'.$funcionario_existente->codigo.'</u></div>';
+            $html = $html.'<p style="text-align:center;">EXPERI&Ecirc;NCIA PROFISSIONAL (Outras Empresas / Institui&Ccedil;&Otilde;es e S.M.O)</p>';
+            $html = $html.'<p style="text-align:center;">Hist&Oacute;rico Experi&Ecirc;ncia Profissional</p>';
+            
+            $html = $html.'<table border="1" style="text-align:center;margin: 0 auto;page-break-after: always;" width="80%" >';
+            $html = $html.'<tr bgcolor="#F7D358"><td>INSTITUI&Ccedil;&Atilde;O</td><td>CARGO / FUN&Ccedil;&Atilde;O</td><td>DATA INICIO</td><td>DATA FIM</td></tr>';
+            
+            foreach ($historico_experiencia_outras as $historico_experiencia_outra)
+            {
+                $html = $html.'<tr><td>'.  Instituicao_ensino::where('id',$historico_experiencia_outra->instituicao)->first()->descricao.'</td>';
+                $html = $html.'<td>'.  Cargo::where('id',$historico_experiencia_outra->cargo)->first()->descricao.'</td>';
+                $html = $html.'<td>'.$historico_experiencia_outra->data_inicio.'</td><td>'.$historico_experiencia_outra->data_fim.'</td></tr>';
+            }
+            $html = $html.'</table';
+            
+            $familiares = Familiar::where('funcionario_id',$funcionario_efectivo->funcionario_id)->get();
+            
             $html = $html.'<p style="text-align:center;"><i>DADOS FAMILIARES</i></p>';
             $html = $html.'<p style="text-align:center;"><i><u>AGREGADO FAMILIAR</u></i></p>';
             $html = $html.'<table border="1" style="text-align:center;margin: 0 auto;" width="80%" >';
@@ -561,6 +653,17 @@ class ColaboradorController extends Controller
     }
     public function storeFuncionarioEfectivo2(Request $request)
     {
+        $this->validate($request, [
+           'data_admissao' => 'required|date|before:today',
+           'data_integracao' =>'required|date|before:today',
+           'carreira'=>'not_in:1',
+           'direccao'=>'not_in:1',
+           'situacao'=>'not_in:1',
+           'departamento'=>'not_in:1',
+           'cargo'=>'not_in:1',
+           'profissao'=>'not_in:1',
+        ]);
+        
         $experiencia_edm = New Experiencia_edm;
         $experiencia_edm->funcionario_id=$request->funcionario_id;
         $experiencia_edm->data_admissao=$request->data_admissao;
@@ -863,7 +966,7 @@ class ColaboradorController extends Controller
         
         return view('layout.form_saved', [
             'funcionario_id' => $request->funcionario_id,
-            'tipo' => 'reformado',
+            'tipo' => 'efectivo',
         ]);
     }
     
