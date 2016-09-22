@@ -50,10 +50,10 @@
             @endif
             <p> Bem vindo a aplicacao CensoEDM2016<br><br>
                 Esta aplicação tem como base o registo de todas fichas preenchidas durante o recenseamento dos trabalhadores activos e não activos da EDM (Julho-Agosto 2016).<br>
-                Os dados em carregamento devem ser devidamente carregados e corrigidos antes de entrar na aplicação, portanto:<br><ul>
-                <li>Verifique toda ficha, de forma a eliminar todos erros, antes de carregar na aplicação</li><br>
-                <li>Verifique os anexos, como forma de garantia dos dados existentes nas ficas;</li><br>
-                <li>Verifique se a ficha contem assinatura ou impressão digital</li><br></ul></p>
+                Os dados em carregamento devem ser devidamente carregados e corrigidos antes de entrar na aplicação, portanto:<br>
+                Verifique toda ficha, de forma a eliminar todos erros, antes de carregar na aplicação<br>
+                Verifique os anexos, como forma de garantia dos dados existentes nas ficas;<br>
+                Verifique se a ficha contem assinatura ou impressão digital><br></p>
         </div>
     </div>
 </div>
