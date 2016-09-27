@@ -7,6 +7,8 @@
         </div>
         <div class="panel-body">
             {{Form::open()}}
+            <input type="hidden" id="funcionario" name="funcionario"  value="{{$funcionario}}"/>
+            <input type="hidden" id="funcionario_pensionista" name="funcionario_pensionista"  value="{{$funcionario_pensionista}}"/>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="col-lg-4">                      

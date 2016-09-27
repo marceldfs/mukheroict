@@ -38,6 +38,7 @@ use App\Historico_experiencia_outra;
 use App;
 use Input;
 use Auth;
+use Carbon\Carbon;
 
 
 class ColaboradorController extends Controller
@@ -70,6 +71,9 @@ class ColaboradorController extends Controller
     
     public function formularioEfectivo(Request $request)
     {
+        $funcionario_efectivo = new Funcionario_efectivo;
+        $funcionario = new Funcionario;
+        
         return view('layout.form_efectivo', [
             'bancos' => Banco::pluck('descricao', 'id'),
             'estados_civil' => Estado_civil::pluck('descricao', 'id'),
@@ -82,11 +86,16 @@ class ColaboradorController extends Controller
             'tamanhos_letra' => Tamanho_letra::pluck('descricao', 'id'),
             'tamanhos_numero' => Tamanho_numero::pluck('descricao', 'id'),
             'tipos_sanguineo' => Tipo_sanguineo::pluck('descricao', 'id'),
+            'funcionario_efectivo' => $funcionario_efectivo,
+            'funcionario' => $funcionario,
         ]);
     }
     
     public function formularioReformado(Request $request)
     {
+        $funcionario_reformado = new Funcionario_reformado;
+        $funcionario = new Funcionario;
+        
         return view('layout.form_reformados', [
             'bancos' => Banco::pluck('descricao', 'id'),
             'estados_civil' => Estado_civil::pluck('descricao', 'id'),
@@ -99,11 +108,16 @@ class ColaboradorController extends Controller
             'tamanhos_letra' => Tamanho_letra::pluck('descricao', 'id'),
             'tamanhos_numero' => Tamanho_numero::pluck('descricao', 'id'),
             'tipos_sanguineo' => Tipo_sanguineo::pluck('descricao', 'id'),
+            'funcionario_reformado' => $funcionario_reformado,
+            'funcionario' => $funcionario,
         ]);
     }
     
     public function formularioPensionista(Request $request)
     {
+        $funcionario_pensionista = new Funcionario_pensionista;
+        $funcionario = new Funcionario;  
+        
         return view('layout.form_pensionistas', [
             'bancos' => Banco::pluck('descricao', 'id'),
             'estados_civil' => Estado_civil::pluck('descricao', 'id'),
@@ -117,6 +131,8 @@ class ColaboradorController extends Controller
             'tamanhos_numero' => Tamanho_numero::pluck('descricao', 'id'),
             'tipos_sanguineo' => Tipo_sanguineo::pluck('descricao', 'id'),
             'parentescos' => Parentesco::pluck('descricao', 'id'),
+            'funcionario_pensionista' => $funcionario_pensionista,
+            'funcionario' => $funcionario,
         ]);
     }
     
@@ -493,15 +509,15 @@ class ColaboradorController extends Controller
            'numero_conta_mzn' =>'required|digits_between:7,21',
            'celular' =>'required|digits_between:8,13',
            'morada' =>'required',
-           'email' =>'required|email',
            'codigo_familiar' => 'required|exists:funcionario_existente,codigo',
-           //'codigo' => 'required|max:11|digits'
        ]);
        
        $user=Auth::user()->funcionariosCreated();
        $estado_civil=Estado_civil::where('id',$request->input('estado_civil'))->first();
        
-       $funcionario=new Funcionario;
+       $funcionario=$request->funcionario;
+       $funcionario_pensionista=$request->funcionario_pensionista;
+       
        $funcionario->codigo=$request->codigo;
        $funcionario->nome_completo=$request->nome_completo;
        $funcionario->estado_civil=$request->input('estado_civil');
@@ -531,7 +547,6 @@ class ColaboradorController extends Controller
        
        $id=Funcionario::where('codigo',$request->codigo)->first()->id;
        
-       $funcionario_pensionista=new Funcionario_pensionista;
        $funcionario_pensionista->funcionario_id=$id;
        $funcionario_pensionista->pensao_mzn=$request->pensao_reforma_mzn;
        $funcionario_pensionista->pensao_usd=$request->pensao_reforma_usd;
@@ -653,9 +668,13 @@ class ColaboradorController extends Controller
     }
     public function storeFuncionarioEfectivo2(Request $request)
     {
+        $funcionario = Funcionario::where('id',$request->funcionario_id)->first();
+        $data_minima_integracao = Carbon::parse($funcionario->data_nascimento);
+        $data_minima_integracao->addYears(18);
+        
         $this->validate($request, [
            'data_admissao' => 'required|date|before:today',
-           'data_integracao' =>'required|date|before:today',
+           'data_integracao' =>'required|date|before:today|after:'.$request->data_admissao.'|after:'.$data_minima_integracao,
            'carreira'=>'not_in:1',
            'direccao'=>'not_in:1',
            'situacao'=>'not_in:1',
@@ -1017,6 +1036,192 @@ class ColaboradorController extends Controller
         return view('layout.form_busca_colaboradores', [
             'funcionarios' => $funcionarios,
         ]);
+    }
+    
+    public function alterarFuncionario(Request $request, Funcionario $funcionario)
+    {
+        if(count(Funcionario_pensionista::where('funcionario_id',$funcionario->id)->get())>=1)
+        {
+            return view('layout.form_pensionistas', [
+                'bancos' => Banco::pluck('descricao', 'id'),
+                'estados_civil' => Estado_civil::pluck('descricao', 'id'),
+                'generos' => Genero::pluck('descricao', 'id'),
+                'provincias' => Provincia::pluck('descricao', 'id'),
+                'distritos' => Distrito::pluck('descricao', 'id'),
+                'tipos_documento' => Tipo_documento::pluck('descricao', 'id'),
+                'tipos_carta' => Tipo_carta_conducao::pluck('descricao', 'id'),
+                'paises' => Pais::pluck('descricao', 'id'),
+                'tamanhos_letra' => Tamanho_letra::pluck('descricao', 'id'),
+                'tamanhos_numero' => Tamanho_numero::pluck('descricao', 'id'),
+                'tipos_sanguineo' => Tipo_sanguineo::pluck('descricao', 'id'),
+                'parentescos' => Parentesco::pluck('descricao', 'id'),
+                'tipo' => 'pensionista',
+                'funcionario' => $funcionario,
+            ]);
+        }
+        if(count(Funcionario_reformado::where('funcionario_id',$funcionario->id)->get())>=1)
+        {            
+            return view('layout.form_reformados', [
+                'bancos' => Banco::pluck('descricao', 'id'),
+                'estados_civil' => Estado_civil::pluck('descricao', 'id'),
+                'generos' => Genero::pluck('descricao', 'id'),
+                'provincias' => Provincia::pluck('descricao', 'id'),
+                'distritos' => Distrito::pluck('descricao', 'id'),
+                'tipos_documento' => Tipo_documento::pluck('descricao', 'id'),
+                'tipos_carta' => Tipo_carta_conducao::pluck('descricao', 'id'),
+                'paises' => Pais::pluck('descricao', 'id'),
+                'tamanhos_letra' => Tamanho_letra::pluck('descricao', 'id'),
+                'tamanhos_numero' => Tamanho_numero::pluck('descricao', 'id'),
+                'tipos_sanguineo' => Tipo_sanguineo::pluck('descricao', 'id'),
+                'tipo' => 'reformado',
+                'funcionario' => $funcionario,
+            ]);
+        }
+        if(count(Funcionario_efectivo::where('funcionario_id',$funcionario->id)->get())>=1)
+        {            
+            return view('layout.form_efectivo', [
+                'bancos' => Banco::pluck('descricao', 'id'),
+                'estados_civil' => Estado_civil::pluck('descricao', 'id'),
+                'generos' => Genero::pluck('descricao', 'id'),
+                'provincias' => Provincia::pluck('descricao', 'id'),
+                'distritos' => Distrito::pluck('descricao', 'id'),
+                'tipos_documento' => Tipo_documento::pluck('descricao', 'id'),
+                'tipos_carta' => Tipo_carta_conducao::pluck('descricao', 'id'),
+                'paises' => Pais::pluck('descricao', 'id'),
+                'tamanhos_letra' => Tamanho_letra::pluck('descricao', 'id'),
+                'tamanhos_numero' => Tamanho_numero::pluck('descricao', 'id'),
+                'tipos_sanguineo' => Tipo_sanguineo::pluck('descricao', 'id'),
+                'tipo' => 'reformado',
+                'funcionario' => $funcionario,
+            ]);
+        }
+    }
+    
+    public function salvarAlteracaoFuncionario(Request $request, Funcionario $funcionario)
+    {
+        if(count(Funcionario_pensionista::where('funcionario_id',$funcionario->id)->get())>=1)
+        {
+            $this->validate($request, [
+               'codigo' => 'required|exists:funcionario_existente,codigo',
+               'nome_completo' =>'required|max:75',
+               'numero_documento' =>'required|max:20',
+               'nuit' =>'required|digits:9',
+               'numero_conta_mzn' =>'required|digits_between:7,21',
+               'celular' =>'required|digits_between:8,13',
+               'morada' =>'required',
+               'codigo_familiar' => 'required|exists:funcionario_existente,codigo',
+           ]);
+        }
+        if(count(Funcionario_reformado::where('funcionario_id',$funcionario->id)->get())>=1)
+        {
+            $this->validate($request, [
+                'codigo' => 'required|exists:funcionario_existente,codigo|unique:funcionarios,codigo',
+                'nome_completo' =>'required|max:75',
+                'numero_documento' =>'required|max:20',
+                'nuit' =>'required|digits:9',
+                'numero_conta_mzn' =>'required|digits_between:7,21',
+                'celular' =>'required|digits_between:8,13',
+                'morada' =>'required',
+                'email' =>'required|email',
+                'pensao_reforma_mzn' =>'required',
+            ]);
+        }
+        if(count(Funcionario_efectivo::where('funcionario_id',$funcionario->id)->get())>=1)
+        {
+            return view('layout.form_efectivo', [
+                'bancos' => Banco::pluck('descricao', 'id'),
+                'estados_civil' => Estado_civil::pluck('descricao', 'id'),
+                'generos' => Genero::pluck('descricao', 'id'),
+                'provincias' => Provincia::pluck('descricao', 'id'),
+                'distritos' => Distrito::pluck('descricao', 'id'),
+                'tipos_documento' => Tipo_documento::pluck('descricao', 'id'),
+                'tipos_carta' => Tipo_carta_conducao::pluck('descricao', 'id'),
+                'paises' => Pais::pluck('descricao', 'id'),
+                'tamanhos_letra' => Tamanho_letra::pluck('descricao', 'id'),
+                'tamanhos_numero' => Tamanho_numero::pluck('descricao', 'id'),
+                'tipos_sanguineo' => Tipo_sanguineo::pluck('descricao', 'id'),
+            ]);
+        }
+            
+        $funcionario->nome_completo=$request->nome_completo;
+        $funcionario->estado_civil=$request->input('estado_civil');
+        $funcionario->genero=$request->input('genero');
+        $funcionario->tipo_documento=$request->input('tipo_documento');
+        $funcionario->numero_documento=$request->numero_documento;
+        $funcionario->nuit=$request->nuit;
+        $funcionario->data_nascimento=$request->data_nascimento;
+        $funcionario->provincia_naturalidade=$request->input('provincia_naturalidade');
+        $funcionario->distrito_naturalidade=$request->input('distrito_naturalidade');
+        $funcionario->banco_mzn=$request->input('banco_mzn');
+        $funcionario->numero_conta_mzn=$request->numero_conta_mzn;
+        $funcionario->banco_usd=$request->input('banco_usd');
+        $funcionario->numero_conta_usd=$request->numero_conta_usd;
+        $funcionario->provincia_morada=$request->input('provincia_morada');
+        $funcionario->distrito_morada=$request->input('distrito_morada');
+        $funcionario->pais_morada=$request->input('pais_morada');
+        $funcionario->localidade=$request->localidade;
+        $funcionario->celular=$request->celular;
+        $funcionario->celular_alternativo=$request->celular_alternativo;
+        $funcionario->morada=$request->morada;
+        $funcionario->email=$request->email;
+
+        $funcionario->save();
+
+        $id=Funcionario::where('codigo',$request->codigo)->first()->id;
+       
+        if(count(Funcionario_pensionista::where('funcionario_id',$funcionario->id)->get())>=1)
+        {
+            $funcionario_pensionista = Funcionario_pensionista::where('funcionario_id',$funcionario->id)->first();
+
+            $funcionario_pensionista->funcionario_id=$id;
+            $funcionario_pensionista->pensao_mzn=$request->pensao_reforma_mzn;
+            $funcionario_pensionista->pensao_usd=$request->pensao_reforma_usd;
+            $funcionario_pensionista->codigo_ex_familiar=$request->codigo_familiar;
+
+            $nome =  Funcionario_existente::where('codigo',$request->codigo)->first()->nome;
+
+            $funcionario_pensionista->nome_ex_familiar=$nome;
+            $funcionario_pensionista->parentesco=$request->input('parentesco');
+
+            $funcionario_pensionista->save();
+
+            return view('layout.form_saved', [
+                 'funcionario_id' => $id,
+                 'tipo' => 'pensionista',
+             ]);
+        }
+        if(count(Funcionario_reformado::where('funcionario_id',$funcionario->id)->get())>=1)
+        {
+            $funcionario_reformado=Funcionario_reformado::where('funcionario_id',$funcionario->id)->first();
+            $funcionario_reformado->pensao_reforma_mzn=$request->pensao_reforma_mzn;
+            $funcionario_reformado->pensao_reforma_usd=$request->pensao_reforma_usd;
+
+            $funcionario_reformado->save();
+            
+            return view('layout.form_saved', [
+                 'funcionario_id' => $id,
+                 'tipo' => 'reformado',
+             ]);
+        }
+        if(count(Funcionario_efectivo::where('funcionario_id',$funcionario->id)->get())>=1)
+        {
+            $funcionario_efectivo=Funcionario_efectivo::where('funcionario_id',$funcionario->id)->first();
+            $funcionario_efectivo->numero_inss=$request->numero_inss;
+            $funcionario_efectivo->numero_carta_conducao=$request->numero_carta_conducao;
+            $funcionario_efectivo->tipo_carta_conducao=$request->input('tipo_carta_conducao');
+            $funcionario_efectivo->tamanho_camisete=$request->input('tamanho_camisete');
+            $funcionario_efectivo->tamanho_botas=$request->input('tamanho_botas');
+            $funcionario_efectivo->tamanho_fato=$request->input('tamanho_fato');
+            $funcionario_efectivo->tamanho_capacete=$request->input('tamanho_capacete');
+            $funcionario_efectivo->tipo_sanguineo=$request->input('tipo_sanguineo');
+
+            $funcionario_efectivo->save();
+            
+            return view('layout.form_saved', [
+                 'funcionario_id' => $id,
+                 'tipo' => 'efectivo',
+             ]);
+        }
     }
     
     /**

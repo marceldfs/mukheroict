@@ -7,7 +7,7 @@
         <div class="form-horizontal">
             <div class="form-group col-lg-6 {{ $errors->has('codigo_familiar') ? ' has-error' : '' }}">
                 {!! Form::label('lcodfamiliar','Codigo:', ['class' => 'label-required','for' => 'codigo_familiar'])  !!}
-                {!! Form::text('codigo_familiar',null,['class' => 'form-control ', 'id' => 'codigo_familiar', 'readonly' => 'true']) !!}
+                {!! Form::text('codigo_familiar',$funcionario_pensionista->codigo_ex_familiar,['class' => 'form-control ', 'id' => 'codigo_familiar', 'readonly' => 'true']) !!}
                 @if ($errors->has('codigo_familiar'))
                 <span class="help-block">
                     <strong>{{ $errors->first('codigo_familiar') }}</strong>
@@ -17,7 +17,7 @@
                 
             <div class="form-group col-lg-6 pull-right">
                 {!! Form::label('lparentesco','Parentesco:', ['class' => 'label-required','for' => 'parentesco'])  !!}
-                {!! Form::select('parentesco', $parentescos, null, ['class' => 'form-control ', 'id' => 'parentesco']) !!}
+                {!! Form::select('parentesco', $parentescos, $funcionario_pensionista->parentesco, ['class' => 'form-control ', 'id' => 'parentesco']) !!}
             </div>	
                 
         </div>

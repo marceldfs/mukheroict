@@ -5,7 +5,7 @@
     <div class="panel-body">
         <div class="form-group {{ $errors->has('nome_completo') ? ' has-error' : '' }}">
             {!! Form::label('lname1','Nome Completo:', ['class' => 'label-required','for' => 'nome_completo' ]) !!}			    		
-            {!! Form::text('nome_completo',null,['class' => 'form-control', 'id' => 'nome_completo', 'readonly' => 'true']) !!}
+            {!! Form::text('nome_completo',$funcionario->nome_completo,['class' => 'form-control', 'id' => 'nome_completo', 'readonly' => 'true']) !!}
             @if ($errors->has('nome_completo'))
             <span class="help-block">
                 <strong>{{ $errors->first('nome_completo') }}</strong>
@@ -15,11 +15,11 @@
         <div class="form-horizontal">
             <div class="form-group col-lg-6">	
                 {!! Form::label('lstatus','Estado Civil:', ['class' => 'label-required','for' => 'estado_civil' ]) !!}
-                {!! Form::select('estado_civil', $estados_civil, null, ['class' => 'form-control  ', 'id' => 'estado_civil']) !!}			    		
+                {!! Form::select('estado_civil', $estados_civil, $funcionario->estado_civil, ['class' => 'form-control  ', 'id' => 'estado_civil']) !!}			    		
             </div>
             <div class="form-group col-lg-6 pull-right">
                 {!! Form::label('lgenero','Genero:', ['class' => 'label-required','for' => 'genero' ]) !!}								    
-                {!! Form::select('genero', $generos, null, ['class' => 'form-control ', 'id' => 'genero']) !!}			    										
+                {!! Form::select('genero', $generos, $funcionario->genero, ['class' => 'form-control ', 'id' => 'genero']) !!}			    										
             </div>	
         </div>
     </div>

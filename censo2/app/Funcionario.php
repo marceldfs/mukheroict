@@ -11,6 +11,11 @@ class Funcionario extends Model
         'nib_usd','localidade','celular','celular_alternativo','morada',
         'email'];
     
+    public function getData_nascimento($value)
+    {
+        return Carbon::parse($value)->format('d/m/Y');
+    }
+    
     public function FuncionarioExistente()
     {
         return $this->belongsTo(Funcionario_existente::class);

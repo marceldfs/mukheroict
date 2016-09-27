@@ -18,7 +18,6 @@ Route::get('/', function () {
 
         $funcionariosInseridos = $user->FuncionariosCreated()->get();
 
-
         return view('pages.index',[
             'funcionariosInseridos'=>$funcionariosInseridos,
         ]);
@@ -94,3 +93,7 @@ Route::post('/salvarUtilizador', 'UserController@salvarUtilizador');
 Route::get('/busca', 'ColaboradorController@buscaFuncionarios');
 
 Route::post('/busca', 'ColaboradorController@listaFuncionarios');
+
+Route::get('/alterarFuncionario/{funcionario}', 'ColaboradorController@alterarFuncionario');
+
+Route::post('/alterarFuncionario/{funcionario}', 'ColaboradorController@salvarAlteracaoFuncionario');

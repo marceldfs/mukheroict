@@ -5,7 +5,7 @@
     <div class="panel-body">
         <div class=" form-group {{ $errors->has('codigo') ? ' has-error' : '' }}">
             {!! Form::label('codigo','Codigo:', ['class' => 'label-required','for' => 'codigo'])  !!}
-            {!! Form::text('codigo',null,['class' => 'form-control', 'id' => 'codigo', 'onChange'=>'getNome()']) !!}
+            {!! Form::text('codigo',$funcionario->codigo,['class' => 'form-control', 'id' => 'codigo', 'onChange'=>'getNome()', 'onClick'=>'getNome()']) !!}
             @if ($errors->has('codigo'))
             <span class="help-block">
                 <strong>{{ $errors->first('codigo') }}</strong>
