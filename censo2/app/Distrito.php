@@ -17,4 +17,9 @@ class Distrito extends Model
     {
         return $this->hasMany(Funcionario::class,"distrito_morada");
     }
+    
+    public function Provincia()
+    {
+        return $this->belongsTo(Provincia::class);
+    }
 }

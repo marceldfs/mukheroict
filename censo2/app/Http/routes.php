@@ -1,5 +1,7 @@
 <?php
 
+use App\Departamento;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -97,3 +99,7 @@ Route::post('/busca', 'ColaboradorController@listaFuncionarios');
 Route::get('/alterarFuncionario/{funcionario}', 'ColaboradorController@alterarFuncionario');
 
 Route::post('/alterarFuncionario/{funcionario}', 'ColaboradorController@salvarAlteracaoFuncionario');
+
+Route::get('/departamentos/{direccao}', 'ColaboradorController@getDepartamentos'); 
+
+Route::get('/distritos/{provincia}', 'ColaboradorController@getDistritos'); 

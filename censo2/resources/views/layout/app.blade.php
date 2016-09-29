@@ -10,6 +10,8 @@
         <!-- Bootstrap core CSS -->
         <link href="{{ asset('bootstrap-3.3.6/css/bootstrap.min.css') }}" rel="stylesheet">
         <link href="{{ asset('bootstrap-3.3.6/css/edm.css') }}" rel="stylesheet">
+        <script src="{{asset('https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js')}}"></script>
+        <script src="{{asset('bootstrap-3.3.6/js/bootstrap.min.js')}}"></script>
         <title>Censo 2016 - Electricidade de Mo&ccedil;ambique</title>
             
     </head>
@@ -103,8 +105,5 @@
                 <p>&copy; 2016 Eletricidade de Mo&ccedil;ambique, LDA. &middot; - Reportar bug (<a href="mailto:herlim.telhano@edm.co.mz">Herlim Telhano</a>) </p>
             </footer>
         </div>
-            
-        <script src="{{asset('https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js')}}"></script>
-        <script src="{{asset('bootstrap-3.3.6/js/bootstrap.min.js')}}"></script>
     </body>
 </html>

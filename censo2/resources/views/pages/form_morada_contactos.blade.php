@@ -16,8 +16,23 @@
                 {!! Form::select('distrito_morada', $distritos, $funcionario->distrito_morada, ['class' => 'form-control ', 'id' => 'distrito_morada']) !!}
             </div>
         </div>
+        <script>
+            $('#provincia_morada').on('change', function(e){
+                console.log(e);
+                var provincia_id = e.target.value;
+                
+                $.get('/distritos/' + provincia_id, function(data) {
+                    console.log(data);
+                    $('#distrito_morada').empty();
+                    $.each(data, function(index,subCatObj){
+                        $('#distrito_morada').append('<option value="' + subCatObj.id +'">' + subCatObj.descricao + '</option>');
+                        console.log(subCatObj);
+                    });
+                });
+            });
+        </script>
             
-        <!--Pais E lcaoliadade-->
+        <!--Pais E localiadade-->
         <div class="form-horizontal">
             <div class="form-group col-lg-6">
                 {!! Form::label('lpais','Pais:', [ 'for' => 'pais_morada' ]) !!}	

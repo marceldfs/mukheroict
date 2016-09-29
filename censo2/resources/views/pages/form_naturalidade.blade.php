@@ -14,6 +14,21 @@
         <div class="form-group">
             {!! Form::label('ldistrito','Distrito:', ['for' => 'distrito' ]) !!}								    
             {!! Form::select('distrito_naturalidade', $distritos, $funcionario->distrito_naturalidade, ['class' => 'form-control ', 'id' => 'distrito_naturalidade']) !!}			    										
-        </div>						    	
+        </div>
+        <script>
+            $('#provincia_naturalidade').on('change', function(e){
+                console.log(e);
+                var provincia_id = e.target.value;
+                
+                $.get('/distritos/' + provincia_id, function(data) {
+                    console.log(data);
+                    $('#distrito_naturalidade').empty();
+                    $.each(data, function(index,subCatObj){
+                        $('#distrito_naturalidade').append('<option value="' + subCatObj.id +'">' + subCatObj.descricao + '</option>');
+                        console.log(subCatObj);
+                    });
+                });
+            });
+        </script>
     </div>	
 </div>  

@@ -1230,6 +1230,18 @@ class ColaboradorController extends Controller
         }
     }
     
+    public function getDepartamentos(Request $request, $direccao)
+    {
+        $departamentos = Departamento::where('direccaos_id',$direccao)->get();
+        return $departamentos;
+    }
+    
+    public function getDistritos(Request $request, $provincia)
+    {
+        $distritos = Distrito::where('provincias_id',$provincia)->get();
+        return $distritos;
+    }
+    
     /**
     * Destroy the given task.
     *

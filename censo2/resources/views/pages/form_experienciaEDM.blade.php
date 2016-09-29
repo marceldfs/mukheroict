@@ -91,6 +91,71 @@
                         return ;}
                     
                 }
+                $('#direccao1').on('change', function(e){
+                    console.log(e);
+                    var direccao_id = e.target.value;
+                
+                    $.get('/departamentos/' + direccao_id, function(data) {
+                        console.log(data);
+                        $('#departamento1').empty();
+                        $.each(data, function(index,subCatObj){
+                            $('#departamento1').append('<option value="' + subCatObj.id +'">' + subCatObj.descricao + '</option>');
+                            console.log(subCatObj);
+                        });
+                    });
+                });
+                $('#direccao2').on('change', function(e){
+                    console.log(e);
+                    var direccao_id = e.target.value;
+                
+                    $.get('/departamentos/' + direccao_id, function(data) {
+                        console.log(data);
+                        $('#departamento2').empty();
+                        $.each(data, function(index,subCatObj){
+                            $('#departamento2').append('<option value="' + subCatObj.id +'">' + subCatObj.descricao + '</option>');
+                            console.log(subCatObj);
+                        });
+                    });
+                });
+                $('#direccao3').on('change', function(e){
+                    console.log(e);
+                    var direccao_id = e.target.value;
+                
+                    $.get('/departamentos/' + direccao_id, function(data) {
+                        console.log(data);
+                        $('#departamento3').empty();
+                        $.each(data, function(index,subCatObj){
+                            $('#departamento3').append('<option value="' + subCatObj.id +'">' + subCatObj.descricao + '</option>');
+                            console.log(subCatObj);
+                        });
+                    });
+                });
+                $('#direccao4').on('change', function(e){
+                    console.log(e);
+                    var direccao_id = e.target.value;
+                
+                    $.get('/departamentos/' + direccao_id, function(data) {
+                        console.log(data);
+                        $('#departamento4').empty();
+                        $.each(data, function(index,subCatObj){
+                            $('#departamento4').append('<option value="' + subCatObj.id +'">' + subCatObj.descricao + '</option>');
+                            console.log(subCatObj);
+                        });
+                    });
+                });
+                $('#direccao5').on('change', function(e){
+                    console.log(e);
+                    var direccao_id = e.target.value;
+                
+                    $.get('/departamentos/' + direccao_id, function(data) {
+                        console.log(data);
+                        $('#departamento5').empty();
+                        $.each(data, function(index,subCatObj){
+                            $('#departamento5').append('<option value="' + subCatObj.id +'">' + subCatObj.descricao + '</option>');
+                            console.log(subCatObj);
+                        });
+                    });
+                });
             </script>
         </div>
     </div>				    	

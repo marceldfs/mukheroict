@@ -22,4 +22,9 @@ class Direccao extends Model
     {
         return $this->hasMany(Historico_experiencia_edm::class,"direccao");
     }
+    
+    public function Departamentos()
+    {
+        return $this->hasMany(Departamento::class,"direccaos_id");
+    }
 }

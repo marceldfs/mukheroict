@@ -18,4 +18,9 @@ class Departamento extends Model
         return $this->hasMany(Historico_experiencia_edm::class,"departamento");
     }
     
+    public function Direccao()
+    {
+        return $this->belongsTo(Direccao::class);
+    }
+    
 }

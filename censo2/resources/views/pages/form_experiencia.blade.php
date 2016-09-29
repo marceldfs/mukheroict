@@ -75,5 +75,20 @@
             </span>
             @endif
         </div>
+        <script>         
+            $('#direccao').on('change', function(e){
+                console.log(e);
+                var direccao_id = e.target.value;
+                
+                $.get('/departamentos/' + direccao_id, function(data) {
+                    console.log(data);
+                    $('#departamento').empty();
+                    $.each(data, function(index,subCatObj){
+                        $('#departamento').append('<option value="' + subCatObj.id +'">' + subCatObj.descricao + '</option>');
+                        console.log(subCatObj);
+                    });
+                });
+            });
+        </script>
     </div>
 </div>  
