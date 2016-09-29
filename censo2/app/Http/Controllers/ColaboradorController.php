@@ -1042,6 +1042,7 @@ class ColaboradorController extends Controller
     {
         if(count(Funcionario_pensionista::where('funcionario_id',$funcionario->id)->get())>=1)
         {
+            $funcionario_pensionista = Funcionario_pensionista::where('funcionario_id',$funcionario->id)->first();
             return view('layout.form_pensionistas', [
                 'bancos' => Banco::pluck('descricao', 'id'),
                 'estados_civil' => Estado_civil::pluck('descricao', 'id'),
@@ -1057,10 +1058,12 @@ class ColaboradorController extends Controller
                 'parentescos' => Parentesco::pluck('descricao', 'id'),
                 'tipo' => 'pensionista',
                 'funcionario' => $funcionario,
+                'funcionario_pensionista' => $funcionario_pensionista,
             ]);
         }
         if(count(Funcionario_reformado::where('funcionario_id',$funcionario->id)->get())>=1)
-        {            
+        {       
+            $funcionario_reformado = Funcionario_reformado::where('funcionario_id',$funcionario->id)->first();
             return view('layout.form_reformados', [
                 'bancos' => Banco::pluck('descricao', 'id'),
                 'estados_civil' => Estado_civil::pluck('descricao', 'id'),
@@ -1075,10 +1078,12 @@ class ColaboradorController extends Controller
                 'tipos_sanguineo' => Tipo_sanguineo::pluck('descricao', 'id'),
                 'tipo' => 'reformado',
                 'funcionario' => $funcionario,
+                'funcionario_reformado' => $funcionario_reformado,
             ]);
         }
         if(count(Funcionario_efectivo::where('funcionario_id',$funcionario->id)->get())>=1)
-        {            
+        {          
+            $funcionario_efectivo = Funcionario_efectivo::where('funcionario_id',$funcionario->id)->first();
             return view('layout.form_efectivo', [
                 'bancos' => Banco::pluck('descricao', 'id'),
                 'estados_civil' => Estado_civil::pluck('descricao', 'id'),
@@ -1093,6 +1098,7 @@ class ColaboradorController extends Controller
                 'tipos_sanguineo' => Tipo_sanguineo::pluck('descricao', 'id'),
                 'tipo' => 'reformado',
                 'funcionario' => $funcionario,
+                'funcionario_efectivo' => $funcionario_efectivo,
             ]);
         }
     }
