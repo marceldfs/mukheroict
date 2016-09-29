@@ -351,8 +351,8 @@ class ColaboradorController extends Controller
             
             foreach ($historico_experiencia_outras as $historico_experiencia_outra)
             {
-                $html = $html.'<tr><td>'.  Instituicao_ensino::where('id',$historico_experiencia_outra->instituicao)->first()->descricao.'</td>';
-                $html = $html.'<td>'.  Cargo::where('id',$historico_experiencia_outra->cargo)->first()->descricao.'</td>';
+                $html = $html.'<tr><td>'.  $historico_experiencia_outra->instituicao.'</td>';
+                $html = $html.'<td>'.  $historico_experiencia_outra->cargo.'</td>';
                 $html = $html.'<td>'.$historico_experiencia_outra->data_inicio.'</td><td>'.$historico_experiencia_outra->data_fim.'</td></tr>';
             }
             $html = $html.'</table';
