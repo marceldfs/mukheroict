@@ -860,7 +860,6 @@ class ColaboradorController extends Controller
     
     public function storeFuncionarioEfectivo4(Request $request)
     {   
-        $familiar;
         if($request->nome1!="")
         {
             $familiar = New Familiar;
@@ -872,8 +871,7 @@ class ColaboradorController extends Controller
             $familiar->tipo_documento=$request->input('tipo_documento1');
             $familiar->numero_documento=$request->numero_documento1;
             $familiar->save();
-        }
-        
+        }       
         if($request->nome2!="")
         {
             $familiar = New Familiar;
@@ -885,8 +883,7 @@ class ColaboradorController extends Controller
             $familiar->tipo_documento=$request->input('tipo_documento2');
             $familiar->numero_documento=$request->numero_documento2;
             $familiar->save();
-        }
-        
+        }  
         if($request->nome3!="")
         {
             $familiar = New Familiar;
@@ -898,8 +895,7 @@ class ColaboradorController extends Controller
             $familiar->tipo_documento=$request->input('tipo_documento3');
             $familiar->numero_documento=$request->numero_documento3;
             $familiar->save();
-        }
-        
+        }        
         if($request->nome4!="")
         {
             $familiar = New Familiar;
@@ -912,7 +908,6 @@ class ColaboradorController extends Controller
             $familiar->numero_documento=$request->numero_documento4;
             $familiar->save();
         }
-        
         if($request->nome5!="")
         {
             $familiar = New Familiar;
@@ -926,16 +921,15 @@ class ColaboradorController extends Controller
             $familiar->save();
         }
         
-        $experiencia_outra;
         if($request->input('salvarExperienciaOutra1')==true)
         {
             $experiencia_outra = New Historico_experiencia_outra;
             $experiencia_outra->funcionario_id=$request->funcionario_id;
             $experiencia_outra->data_inicio=$request->data_inicio1;
             $experiencia_outra->data_fim=$request->data_fim1;
-            $experiencia_outra->instituicao=$request->input('instituicao1');
-            $experiencia_outra->cargo=$request->input('cargo1');
-            $experiencia_outra->profissao=$request->input('profissao1');
+            $experiencia_outra->instituicao=$request->instituicao1;
+            $experiencia_outra->cargo=$request->cargo1;
+            $experiencia_outra->profissao=$request->profissao1;
             $experiencia_outra->save();
         }
         if($request->input('salvarExperienciaOutra2')==true)
@@ -944,9 +938,9 @@ class ColaboradorController extends Controller
             $experiencia_outra->funcionario_id=$request->funcionario_id;
             $experiencia_outra->data_inicio=$request->data_inicio2;
             $experiencia_outra->data_fim=$request->data_fim2;
-            $experiencia_outra->instituicao=$request->input('instituicao2');
-            $experiencia_outra->cargo=$request->input('cargo2');
-            $experiencia_outra->profissao=$request->input('profissao2');
+            $experiencia_outra->instituicao=$request->instituicao2;
+            $experiencia_outra->cargo=$request->cargo2;
+            $experiencia_outra->profissao=$request->profissao2;
             $experiencia_outra->save();
         }
         if($request->input('salvarExperienciaOutra3')==true)
@@ -955,9 +949,9 @@ class ColaboradorController extends Controller
             $experiencia_outra->funcionario_id=$request->funcionario_id;
             $experiencia_outra->data_inicio=$request->data_inicio3;
             $experiencia_outra->data_fim=$request->data_fim3;
-            $experiencia_outra->instituicao=$request->input('instituicao3');
-            $experiencia_outra->cargo=$request->input('cargo3');
-            $experiencia_outra->profissao=$request->input('profissao3');
+            $experiencia_outra->instituicao=$request->instituicao3;
+            $experiencia_outra->cargo=$request->cargo3;
+            $experiencia_outra->profissao=$request->profissao3;
             $experiencia_outra->save();
         }
         if($request->input('salvarExperienciaOutra4')==true)
@@ -966,9 +960,9 @@ class ColaboradorController extends Controller
             $experiencia_outra->funcionario_id=$request->funcionario_id;
             $experiencia_outra->data_inicio=$request->data_inicio4;
             $experiencia_outra->data_fim=$request->data_fim4;
-            $experiencia_outra->instituicao=$request->input('instituicao4');
-            $experiencia_outra->cargo=$request->input('cargo4');
-            $experiencia_outra->profissao=$request->input('profissao4');
+            $experiencia_outra->instituicao=$request->instituicao4;
+            $experiencia_outra->cargo=$request->cargo4;
+            $experiencia_outra->profissao=$request->profissao4;
             $experiencia_outra->save();
         }
         if($request->input('salvarExperienciaOutra5')==true)
@@ -977,9 +971,9 @@ class ColaboradorController extends Controller
             $experiencia_outra->funcionario_id=$request->funcionario_id;
             $experiencia_outra->data_inicio=$request->data_inicio5;
             $experiencia_outra->data_fim=$request->data_fim5;
-            $experiencia_outra->instituicao=$request->input('instituicao5');
-            $experiencia_outra->cargo=$request->input('cargo5');
-            $experiencia_outra->profissao=$request->input('profissao5');
+            $experiencia_outra->instituicao=$request->instituicao5;
+            $experiencia_outra->cargo=$request->cargo5;
+            $experiencia_outra->profissao=$request->profissao5;
             $experiencia_outra->save();
         }
         
