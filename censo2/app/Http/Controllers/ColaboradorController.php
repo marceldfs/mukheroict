@@ -438,7 +438,7 @@ class ColaboradorController extends Controller
        
        $funcionario_efectivo->save();
        
-       return redirect('/efectivo2?funcionario_id='.$id);
+       return redirect('/efectivo2?funcionario_id='.$id.'&estado=novo');
    }
    
    public function storeFuncionarioReformado(Request $request)
@@ -496,7 +496,7 @@ class ColaboradorController extends Controller
        
        $funcionario_reformado->save();
        
-       return redirect('/reformado2?funcionario_id='.$id);
+       return redirect('/reformado2?funcionario_id='.$id.'&estado=novo');
    }
    
    public function storeFuncionarioPensionista(Request $request)
@@ -567,22 +567,47 @@ class ColaboradorController extends Controller
    
     public function formularioReformado2(Request $request)
     {
+       $estado = $request->estado;   
+       $funcionario_id=$request->funcionario_id;
+       
+       if($estado=='novo')
+       {
+           $experiencia_edm_reformado = new Experiencia_edm_reformado; 
+           $familiares = array(New Familiar, New Familiar, New Familiar, New Familiar, New Familiar);
+       }
+       else
+       {
+           $experiencia_edm_reformado = Experiencia_edm_reformado::where('funcionario_id',$funcionario_id)->first();
+           $familiares = Familiar::where('funcionario_id',$funcionario_id)->get();
+           
+           $length = 5 - count($familiares);         
+           for ($j = 0; $j < $length; $j++) {
+                $familiares[] = New Familiar;
+           }
+       }
+        
        return view('layout.form_reformados2', [
             'funcionario_id' => $request->funcionario_id,
             'direccoes' => Direccao::pluck('descricao', 'id'),
             'tipos_documento' => Tipo_documento::pluck('descricao', 'id'),
             'parentescos' => Parentesco::pluck('descricao', 'id'),
+            'experiencia_edm_reformado' => $experiencia_edm_reformado,
+            'familiares' => $familiares,
         ]);
     }
     
     public function storeFuncionarioReformado2(Request $request)
     {
+        $funcionario_id = $request->funcionario_id;
         $experienciaEDM_reformado = new Experiencia_edm_reformado;
-        $experienciaEDM_reformado->funcionario_id=$request->funcionario_id;
+        $experienciaEDM_reformado->funcionario_id=$funcionario_id;
         $experienciaEDM_reformado->data_reforma=$request->data_reforma;
         $experienciaEDM_reformado->direccao=$request->input('direccao');
+        
+        Experiencia_edm_reformado::where('funcionario_id',$funcionario_id)->delete();
         $experienciaEDM_reformado->save();
         
+        Familiar::where('funcionario_id',$funcionario_id)->delete();
         if($request->nome1!="")
         {
             $familiar = New Familiar;
@@ -656,15 +681,33 @@ class ColaboradorController extends Controller
     
     public function formularioEfectivo2(Request $request)
     {
-       return view('layout.form_efectivo2', [
-           'funcionario_id' => $request->funcionario_id,
-           'situacao' => Situacao_experiencia::pluck('descricao', 'id'),
-           'carreira' => Carreira::pluck('descricao', 'id'),
-           'direccao' => Direccao::pluck('descricao', 'id'),
-           'departamento' => Departamento::pluck('descricao', 'id'),
-           'cargo' => Cargo::pluck('descricao', 'id'),
-           'profissao' => Profissao::pluck('descricao', 'id'),
-        ]);
+        $estado = $request->estado;   
+        $funcionario_id=$request->funcionario_id;
+
+        if($estado=='novo')
+        {
+            $experiencia_edm = new Experiencia_edm; 
+        }
+        else
+        {
+            $experiencia_edm = Experiencia_edm::where('funcionario_id',$funcionario_id)->first();
+            if(count(Experiencia_edm::where('funcionario_id',$funcionario_id)->get())<1)
+            {
+                $experiencia_edm = new Experiencia_edm;   
+            }
+        }
+        
+        return view('layout.form_efectivo2', [
+            'funcionario_id' => $request->funcionario_id,
+            'situacoes' => Situacao_experiencia::pluck('descricao', 'id'),
+            'carreira' => Carreira::pluck('descricao', 'id'),
+            'direccao' => Direccao::pluck('descricao', 'id'),
+            'departamento' => Departamento::pluck('descricao', 'id'),
+            'cargo' => Cargo::pluck('descricao', 'id'),
+            'profissao' => Profissao::pluck('descricao', 'id'),
+            'experiencia_edm' => $experiencia_edm,
+            'estado' => $estado,
+         ]);
     }
     public function storeFuncionarioEfectivo2(Request $request)
     {
@@ -693,29 +736,57 @@ class ColaboradorController extends Controller
         $experiencia_edm->departamento=$request->input('departamento');
         $experiencia_edm->cargo=$request->input('cargo');
         $experiencia_edm->profissao=$request->input('profissao');
+        
+        Experiencia_edm::where('funcionario_id',$request->funcionario_id)->delete();
         $experiencia_edm->save();
         
         $id=$request->funcionario_id;
         
-        return redirect('/efectivo3?funcionario_id='.$id);
+        return redirect('/efectivo3?funcionario_id='.$funcionario->id.'&estado='.$request->estado);
     }
     
     public function formularioEfectivo3(Request $request)
     {
-       return view('layout.form_efectivo3', [
-           'funcionario_id' => $request->funcionario_id,
-           'instituicao' => Instituicao_ensino::pluck('descricao', 'id'),
-           'certificado' => Certificado_ensino::pluck('descricao', 'id'),
-           'direccao' => Direccao::pluck('descricao', 'id'),
-           'departamento' => Departamento::pluck('descricao', 'id'),
-           'cargo' => Cargo::pluck('descricao', 'id'),
-           'profissao' => Profissao::pluck('descricao', 'id'),
-        ]);
+        $estado = $request->estado;  
+        $funcionario_id=$request->funcionario_id;
+
+        if($estado=='novo')
+        {
+            $qualificacoes = array(New Qualificacao, New Qualificacao, New Qualificacao, New Qualificacao, New Qualificacao);
+            $experiencias = array(New Historico_experiencia_edm, New Historico_experiencia_edm, New Historico_experiencia_edm, New Historico_experiencia_edm, New Historico_experiencia_edm);
+        }
+        else
+        {
+            $qualificacoes = Qualificacao::where('funcionario_id',$funcionario_id)->get();
+            $length = 5 - count($qualificacoes);         
+            for ($j = 0; $j < $length; $j++) {
+                $qualificacoes[] = New Qualificacao;
+            }
+            
+            $experiencias = Historico_experiencia_edm::where('funcionario_id',$funcionario_id)->get();
+            $length = 5 - count($experiencias);         
+            for ($j = 0; $j < $length; $j++) {
+                $experiencias[] = New Historico_experiencia_edm;
+            }     
+        }
+        
+        return view('layout.form_efectivo3', [
+            'funcionario_id' => $funcionario_id,
+            'instituicao' => Instituicao_ensino::pluck('descricao', 'id'),
+            'certificado' => Certificado_ensino::pluck('descricao', 'id'),
+            'direccao' => Direccao::pluck('descricao', 'id'),
+            'departamento' => Departamento::pluck('descricao', 'id'),
+            'cargo' => Cargo::pluck('descricao', 'id'),
+            'profissao' => Profissao::pluck('descricao', 'id'),
+            'estado' => $estado,
+            'qualificacoes' => $qualificacoes,
+            'experiencias' => $experiencias,
+         ]);
     }
     
     public function storeFuncionarioEfectivo3(Request $request)
     {   
-        $qualificacao;
+        Qualificacao::where('funcionario_id',$request->funcionario_id)->delete();
         if($request->input('salvarQualificacao1')==true)
         {
             $qualificacao = New Qualificacao;
@@ -776,7 +847,7 @@ class ColaboradorController extends Controller
             $qualificacao->save();
         }
         
-        $historico_edm;
+        Historico_experiencia_edm::where('funcionario_id',$request->funcionario_id)->delete();
         if($request->input('salvarExperienciaEDM1')==true)
         {
             $historico_edm = New Historico_experiencia_edm;
@@ -843,23 +914,52 @@ class ColaboradorController extends Controller
         }
         $id=$request->funcionario_id;
         
-        return redirect('/efectivo4?funcionario_id='.$id);
+        return redirect('/efectivo4?funcionario_id='.$id.'&estado='.$request->estado);
     }
     
     public function formularioEfectivo4(Request $request)
     {
-       return view('layout.form_efectivo4', [
+        $estado = $request->estado;  
+        $funcionario_id=$request->funcionario_id;
+
+        if($estado=='novo')
+        {
+            $familiares = array(New Familiar, New Familiar, New Familiar, New Familiar, New Familiar);
+            $experiencias = array(New Historico_experiencia_outra, New Historico_experiencia_outra, 
+                New Historico_experiencia_outra, New Historico_experiencia_outra, New Historico_experiencia_outra);
+        }
+        else
+        {
+            $familiares = Familiar::where('funcionario_id',$funcionario_id)->get();   
+            $length = 5 - count($familiares);         
+            for ($j = 0; $j < $length; $j++) {
+                $familiares[] = New Familiar;
+            }
+            
+            $experiencias = Historico_experiencia_outra::where('funcionario_id',$funcionario_id)->get();
+            $length = 5 - count($experiencias);         
+            for ($j = 0; $j < $length; $j++) {
+                $experiencias[] = New Historico_experiencia_outra;
+            }
+            
+        }
+        
+        return view('layout.form_efectivo4', [
            'funcionario_id' => $request->funcionario_id,
            'instituicao' => Instituicao_ensino::pluck('descricao', 'id'),
            'cargo' => Cargo::pluck('descricao', 'id'),
            'profissao' => Profissao::pluck('descricao', 'id'),
            'tipos_documento' => Tipo_documento::pluck('descricao', 'id'),
            'parentescos' => Parentesco::pluck('descricao', 'id'),
+           'estado' => $estado,
+           'familiares' => $familiares,
+           'experiencias' => $experiencias,
         ]);
     }
     
     public function storeFuncionarioEfectivo4(Request $request)
     {   
+        Familiar::where('funcionario_id',$request->funcionario_id)->delete();
         if($request->nome1!="")
         {
             $familiar = New Familiar;
@@ -921,6 +1021,7 @@ class ColaboradorController extends Controller
             $familiar->save();
         }
         
+        Historico_experiencia_outra::where('funcionario_id',$request->funcionario_id)->delete();
         if($request->input('salvarExperienciaOutra1')==true)
         {
             $experiencia_outra = New Historico_experiencia_outra;
@@ -1115,7 +1216,7 @@ class ColaboradorController extends Controller
         if(count(Funcionario_reformado::where('funcionario_id',$funcionario->id)->get())>=1)
         {
             $this->validate($request, [
-                'codigo' => 'required|exists:funcionario_existente,codigo|unique:funcionarios,codigo',
+                'codigo' => 'required|exists:funcionario_existente,codigo',
                 'nome_completo' =>'required|max:75',
                 'numero_documento' =>'required|max:20',
                 'nuit' =>'required|digits:9',
@@ -1128,18 +1229,16 @@ class ColaboradorController extends Controller
         }
         if(count(Funcionario_efectivo::where('funcionario_id',$funcionario->id)->get())>=1)
         {
-            return view('layout.form_efectivo', [
-                'bancos' => Banco::pluck('descricao', 'id'),
-                'estados_civil' => Estado_civil::pluck('descricao', 'id'),
-                'generos' => Genero::pluck('descricao', 'id'),
-                'provincias' => Provincia::pluck('descricao', 'id'),
-                'distritos' => Distrito::pluck('descricao', 'id'),
-                'tipos_documento' => Tipo_documento::pluck('descricao', 'id'),
-                'tipos_carta' => Tipo_carta_conducao::pluck('descricao', 'id'),
-                'paises' => Pais::pluck('descricao', 'id'),
-                'tamanhos_letra' => Tamanho_letra::pluck('descricao', 'id'),
-                'tamanhos_numero' => Tamanho_numero::pluck('descricao', 'id'),
-                'tipos_sanguineo' => Tipo_sanguineo::pluck('descricao', 'id'),
+            $this->validate($request, [
+                'codigo' => 'required|exists:funcionario_existente,codigo',
+                'nome_completo' =>'required|max:75',
+                'numero_documento' =>'required|max:20',
+                'nuit' =>'required|digits:9',
+                'numero_conta_mzn' =>'required|digits_between:7,21',
+                'celular' =>'required|digits_between:8,13',
+                'morada' =>'required',
+                'email' =>'required|email',
+                'numero_inss' =>'digits:9',
             ]);
         }
             
@@ -1198,10 +1297,7 @@ class ColaboradorController extends Controller
 
             $funcionario_reformado->save();
             
-            return view('layout.form_saved', [
-                 'funcionario_id' => $id,
-                 'tipo' => 'reformado',
-             ]);
+            return redirect('/reformado2?funcionario_id='.$funcionario->id.'&estado=existente');
         }
         if(count(Funcionario_efectivo::where('funcionario_id',$funcionario->id)->get())>=1)
         {
@@ -1217,10 +1313,7 @@ class ColaboradorController extends Controller
 
             $funcionario_efectivo->save();
             
-            return view('layout.form_saved', [
-                 'funcionario_id' => $id,
-                 'tipo' => 'efectivo',
-             ]);
+            return redirect('/efectivo2?funcionario_id='.$funcionario->id.'&estado=existente');
         }
     }
     

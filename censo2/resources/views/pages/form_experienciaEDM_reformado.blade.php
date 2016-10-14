@@ -11,8 +11,8 @@
                     
                 </tr>
                 <tr>           
-                    <td contenteditable="true">{!! Form::date('data_reforma', \Carbon\Carbon::now()) !!}</td>                    
-                    <td contenteditable="true">{!! Form::select('direccao', $direccoes, null, ['class' => 'form-control ', 'id' => 'direccao']) !!}	</td>                    
+                    <td contenteditable="true">{!! Form::date('data_reforma', $experiencia_edm_reformado->data_reforma) !!}</td>                    
+                    <td contenteditable="true">{!! Form::select('direccao', $direccoes, $experiencia_edm_reformado->direccao, ['class' => 'form-control ','id' => 'direccao']) !!}	</td>                    
                 </tr>
                 
             </table>

@@ -8,6 +8,7 @@
         <div class="panel-body">           
             {{Form::open()}}
             <input type="hidden" id="funcionario_id" name="funcionario_id"  value="{{$funcionario_id}}"/>
+            <input type="hidden" id="estado" name="estado"  value="{{$estado}}"/>
             <div class="row">
                 <div class="col-lg-12">               
                     @include('pages.form_qualificacoes')

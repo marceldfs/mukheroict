@@ -20,7 +20,7 @@ class Experiencia_edm extends Model
     
     public function Situacao()
     {
-        return $this->belongsTo(Situacao::class);
+        return $this->belongsTo(Situacao_experiencia::class);
     }
     
     public function Direccao()

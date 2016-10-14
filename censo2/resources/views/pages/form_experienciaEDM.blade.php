@@ -14,51 +14,19 @@
                     <th>Cargo</th>
                     <th>Profissão</th>
                 </tr>
+                <?php $i = 1; ?>
+                @foreach ($experiencias as $experiencia)
                 <tr>   
-                    <td contenteditable="true">{!! Form::checkbox('salvarExperienciaEDM1') !!}</td>
-                    <td contenteditable="true">{!! Form::date('data_inicio1', \Carbon\Carbon::now()) !!}</td>
-                    <td contenteditable="true">{!! Form::date('data_fim1', \Carbon\Carbon::now()) !!}</td>
-                    <td contenteditable="true">{!! Form::select('direccao1', $direccao, null, ['class' => 'form-control ', 'id' => 'direccao1']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('departamento1', $departamento, null, ['class' => 'form-control ', 'id' => 'departamento1']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('cargo1', $cargo, null, ['class' => 'form-control ', 'id' => 'cargo1']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('profissao1', $profissao, null, ['class' => 'form-control ', 'id' => 'profissao1']) !!}</td>
+                    <td contenteditable="true">{!! Form::checkbox('salvarExperienciaEDM'.$i,null,$experiencia->id>=1) !!}</td>
+                    <td contenteditable="true">{!! Form::date('data_inicio'.$i, $experiencia->data_inicio) !!}</td>
+                    <td contenteditable="true">{!! Form::date('data_fim'.$i, $experiencia->data_fim) !!}</td>
+                    <td contenteditable="true">{!! Form::select('direccao'.$i, $direccao, $experiencia->direccao, ['class' => 'form-control ', 'id' => 'direccao'.$i]) !!}</td>
+                    <td contenteditable="true">{!! Form::select('departamento'.$i, $departamento, $experiencia->departamento, ['class' => 'form-control ', 'id' => 'departamento'.$i]) !!}</td>
+                    <td contenteditable="true">{!! Form::select('cargo'.$i, $cargo, $experiencia->cargo, ['class' => 'form-control ', 'id' => 'cargo'.$i]) !!}</td>
+                    <td contenteditable="true">{!! Form::select('profissao'.$i, $profissao, $experiencia->profissao, ['class' => 'form-control ', 'id' => 'profissao'.$i]) !!}</td>
                 </tr>
-                <tr id="2">
-                    <td contenteditable="true">{!! Form::checkbox('salvarExperienciaEDM2') !!}</td>
-                    <td contenteditable="true">{!! Form::date('data_inicio2', \Carbon\Carbon::now()) !!}</td>
-                    <td contenteditable="true">{!! Form::date('data_fim2', \Carbon\Carbon::now()) !!}</td>
-                    <td contenteditable="true">{!! Form::select('direccao2', $direccao, null, ['class' => 'form-control ', 'id' => 'direccao2']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('departamento2', $departamento, null, ['class' => 'form-control ', 'id' => 'departamento2']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('cargo2', $cargo, null, ['class' => 'form-control ', 'id' => 'cargo2']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('profissao2', $profissao, null, ['class' => 'form-control ', 'id' => 'profissao2']) !!}</td>
-                </tr>
-                <tr id="3">
-                    <td contenteditable="true">{!! Form::checkbox('salvarExperienciaEDM3') !!}</td>
-                    <td contenteditable="true">{!! Form::date('data_inicio3', \Carbon\Carbon::now()) !!}</td>
-                    <td contenteditable="true">{!! Form::date('data_fim3', \Carbon\Carbon::now()) !!}</td>
-                    <td contenteditable="true">{!! Form::select('direccao3', $direccao, null, ['class' => 'form-control ', 'id' => 'direccao3']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('departamento3', $departamento, null, ['class' => 'form-control ', 'id' => 'departamento3']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('cargo3', $cargo, null, ['class' => 'form-control ', 'id' => 'cargo3']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('profissao3', $profissao, null, ['class' => 'form-control ', 'id' => 'profissao3']) !!}</td>
-                </tr>
-                <tr id="4">
-                    <td contenteditable="true">{!! Form::checkbox('salvarExperienciaEDM4') !!}</td>
-                    <td contenteditable="true">{!! Form::date('data_inicio4', \Carbon\Carbon::now()) !!}</td>
-                    <td contenteditable="true">{!! Form::date('data_fim4', \Carbon\Carbon::now()) !!}</td>
-                    <td contenteditable="true">{!! Form::select('direccao4', $direccao, null, ['class' => 'form-control ', 'id' => 'direccao4']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('departamento4', $departamento, null, ['class' => 'form-control ', 'id' => 'departamento4']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('cargo4', $cargo, null, ['class' => 'form-control ', 'id' => 'cargo4']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('profissao4', $profissao, null, ['class' => 'form-control ', 'id' => 'profissao4']) !!}</td>
-                </tr>
-                <tr id="5">
-                    <td contenteditable="true">{!! Form::checkbox('salvarExperienciaEDM5') !!}</td>
-                    <td contenteditable="true">{!! Form::date('data_inicio5', \Carbon\Carbon::now()) !!}</td>
-                    <td contenteditable="true">{!! Form::date('data_fim5', \Carbon\Carbon::now()) !!}</td>
-                    <td contenteditable="true">{!! Form::select('direccao5', $direccao, null, ['class' => 'form-control ', 'id' => 'direccao5']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('departamento5', $departamento, null, ['class' => 'form-control ', 'id' => 'departamento5']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('cargo5', $cargo, null, ['class' => 'form-control ', 'id' => 'cargo5']) !!}</td>
-                    <td contenteditable="true">{!! Form::select('profissao5', $profissao, null, ['class' => 'form-control ', 'id' => 'profissao5']) !!}</td>
-                </tr> 
+                <?php $i++; ?>
+                @endforeach
             </table>
             <!--<button type="button" name="data" onclick="check()"/>+</button>-->
             <script>
