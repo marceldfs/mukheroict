@@ -32,4 +32,9 @@ class Historico_experiencia_edm extends Model
     {
         return $this->belongsTo(Cargo::class);
     }
+    
+    public function departamentosFromDireccao($direccao)
+    {
+        return Departamento::where('direccaos_id',$direccao)->pluck('descricao', 'id');
+    }
 }

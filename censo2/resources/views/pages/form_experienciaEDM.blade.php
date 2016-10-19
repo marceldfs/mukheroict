@@ -21,7 +21,7 @@
                     <td contenteditable="true">{!! Form::date('data_inicio'.$i, $experiencia->data_inicio) !!}</td>
                     <td contenteditable="true">{!! Form::date('data_fim'.$i, $experiencia->data_fim) !!}</td>
                     <td contenteditable="true">{!! Form::select('direccao'.$i, $direccao, $experiencia->direccao, ['class' => 'form-control ', 'id' => 'direccao'.$i]) !!}</td>
-                    <td contenteditable="true">{!! Form::select('departamento'.$i, $departamento, $experiencia->departamento, ['class' => 'form-control ', 'id' => 'departamento'.$i]) !!}</td>
+                    <td contenteditable="true">{!! Form::select('departamento'.$i, $experiencia->departamentosFromDireccao($experiencia->direccao), $experiencia->departamento, ['class' => 'form-control ', 'id' => 'departamento'.$i]) !!}</td>
                     <td contenteditable="true">{!! Form::select('cargo'.$i, $cargo, $experiencia->cargo, ['class' => 'form-control ', 'id' => 'cargo'.$i]) !!}</td>
                     <td contenteditable="true">{!! Form::select('profissao'.$i, $profissao, $experiencia->profissao, ['class' => 'form-control ', 'id' => 'profissao'.$i]) !!}</td>
                 </tr>

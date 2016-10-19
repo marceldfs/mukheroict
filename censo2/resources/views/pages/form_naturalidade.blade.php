@@ -13,7 +13,7 @@
         </div>
         <div class="form-group">
             {!! Form::label('ldistrito','Distrito:', ['for' => 'distrito' ]) !!}								    
-            {!! Form::select('distrito_naturalidade', $distritos, $funcionario->distrito_naturalidade, ['class' => 'form-control ', 'id' => 'distrito_naturalidade']) !!}			    										
+            {!! Form::select('distrito_naturalidade', $distritos_naturalidade, $funcionario->distrito_naturalidade, ['class' => 'form-control ', 'id' => 'distrito_naturalidade']) !!}			    										
         </div>
         <script>
             $('#provincia_naturalidade').on('change', function(e){

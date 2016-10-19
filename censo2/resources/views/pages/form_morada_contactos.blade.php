@@ -13,7 +13,7 @@
             </div>	
             <div class="form-group col-lg-6 pull-right">
                 {!! Form::label('ldistr','Distrito:', ['for' => 'distrito_morada'])  !!}
-                {!! Form::select('distrito_morada', $distritos, $funcionario->distrito_morada, ['class' => 'form-control ', 'id' => 'distrito_morada']) !!}
+                {!! Form::select('distrito_morada', $distritos_morada, $funcionario->distrito_morada, ['class' => 'form-control ', 'id' => 'distrito_morada']) !!}
             </div>
         </div>
         <script>
