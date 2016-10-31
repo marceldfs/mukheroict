@@ -78,6 +78,28 @@ class ColaboradorController extends Controller
         return response()->json(array('msg'=> $responseData), 200);
     }
     
+    public function codigoExistingFuncionario(){
+        
+        $codigoToCheck=Input::get('codigo');
+        $tipoFuncionario='Falecido';
+        $responseData="";
+        
+        if(Funcionario_existente::where('codigo',$codigoToCheck)->exists()){
+            if(Tipo_funcionario::where('id',Funcionario_existente::where('codigo',$codigoToCheck)->first()->tipo_funcionario_id)->first()->tipo==$tipoFuncionario)
+            {
+                $responseData = Funcionario_existente::where('codigo',$codigoToCheck) ->first()->codigo;
+            }
+            else
+            {
+                $responseData = "";
+            }
+        }else{                                                                    
+           $responseData = "";
+        }
+        
+        return response()->json(array('msg'=> $responseData), 200);
+    }
+    
     public function formularioEfectivo(Request $request)
     {
         $funcionario_efectivo = new Funcionario_efectivo;

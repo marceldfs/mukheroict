@@ -69,6 +69,8 @@ Route::post("/pensionista", ['as' => 'pensionista', 'uses' => 'ColaboradorContro
 
 Route::get('/getName',['as' => 'getName', 'uses' => 'ColaboradorController@nameExistingFuncionario']);
 
+Route::get('/getCodigo',['as' => 'getName', 'uses' => 'ColaboradorController@codigoExistingFuncionario']);
+
 Route::get('/relatorio',['as' => 'relatorio', 'uses' => 'UserController@relatorioFuncionarios']);
 
 Route::get('/utilizadores',['as' => 'utilizadores', 'uses' => 'UserController@utilizadores']);
@@ -100,3 +102,9 @@ Route::post('/alterarFuncionario/{funcionario}', 'ColaboradorController@salvarAl
 Route::get('/departamentos/{direccao}', 'ColaboradorController@getDepartamentos'); 
 
 Route::get('/distritos/{provincia}', 'ColaboradorController@getDistritos'); 
+
+Route::get('/relatorioEfectivos', 'AdminController@efectivos');
+
+Route::get('/relatorioPensionistas', 'AdminController@pensionistas');
+
+Route::get('/relatorioReformados', 'AdminController@reformados');
