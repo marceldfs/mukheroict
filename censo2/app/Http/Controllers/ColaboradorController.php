@@ -35,6 +35,7 @@ use App\Qualificacao;
 use App\Experiencia_edm;
 use App\Historico_experiencia_edm;
 use App\Historico_experiencia_outra;
+use App\Tipo_funcionario;
 use App;
 use Input;
 use Auth;
@@ -58,10 +59,18 @@ class ColaboradorController extends Controller
     public function nameExistingFuncionario(){
         
         $codigoToCheck=Input::get('codigo');
+        $tipoFuncionario=Input::get('tipo_funcionario');
         $responseData="";
         
         if(Funcionario_existente::where('codigo',$codigoToCheck)->exists()){
-           $responseData = Funcionario_existente::where('codigo',$codigoToCheck) ->first()->nome;
+            if(Tipo_funcionario::where('id',Funcionario_existente::where('codigo',$codigoToCheck)->first()->tipo_funcionario_id)->first()->tipo==$tipoFuncionario)
+            {
+                $responseData = Funcionario_existente::where('codigo',$codigoToCheck) ->first()->nome;
+            }
+            else
+            {
+                $responseData = "Funcionario nao existente! Coloque um codigo valido!";
+            }
         }else{                                                                    
            $responseData = "Funcionario nao existente! Coloque um codigo valido!";
         }
@@ -89,6 +98,7 @@ class ColaboradorController extends Controller
             'tipos_sanguineo' => Tipo_sanguineo::pluck('descricao', 'id'),
             'funcionario_efectivo' => $funcionario_efectivo,
             'funcionario' => $funcionario,
+            'tipo_funcionario' =>'Efectivo',
         ]);
     }
     
@@ -112,6 +122,7 @@ class ColaboradorController extends Controller
             'tipos_sanguineo' => Tipo_sanguineo::pluck('descricao', 'id'),
             'funcionario_reformado' => $funcionario_reformado,
             'funcionario' => $funcionario,
+            'tipo_funcionario' =>'Reformado',
         ]);
     }
     
@@ -136,6 +147,7 @@ class ColaboradorController extends Controller
             'parentescos' => Parentesco::pluck('descricao', 'id'),
             'funcionario_pensionista' => $funcionario_pensionista,
             'funcionario' => $funcionario,
+            'tipo_funcionario' =>'Pensionista',
         ]);
     }
     
@@ -1158,6 +1170,7 @@ class ColaboradorController extends Controller
                 'tipo' => 'pensionista',
                 'funcionario' => $funcionario,
                 'funcionario_pensionista' => $funcionario_pensionista,
+                'tipo_funcionario' =>'Pensionista',
             ]);
         }
         if(count(Funcionario_reformado::where('funcionario_id',$funcionario->id)->get())>=1)
@@ -1179,6 +1192,7 @@ class ColaboradorController extends Controller
                 'tipo' => 'reformado',
                 'funcionario' => $funcionario,
                 'funcionario_reformado' => $funcionario_reformado,
+                'tipo_funcionario' =>'Reformado',
             ]);
         }
         if(count(Funcionario_efectivo::where('funcionario_id',$funcionario->id)->get())>=1)
@@ -1200,6 +1214,7 @@ class ColaboradorController extends Controller
                 'tipo' => 'reformado',
                 'funcionario' => $funcionario,
                 'funcionario_efectivo' => $funcionario_efectivo,
+                'tipo_funcionario' =>'Efectivo',
             ]);
         }
     }

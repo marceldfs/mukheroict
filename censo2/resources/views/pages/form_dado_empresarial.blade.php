@@ -3,6 +3,7 @@
         <span class="panel-heading-text"> Dados empresariais </span>
     </div>
     <div class="panel-body">
+        <input type="hidden" id="tipo_funcionario" name="tipo_funcionario"  value="{{$tipo_funcionario}}"/>
         <div class=" form-group {{ $errors->has('codigo') ? ' has-error' : '' }}">
             {!! Form::label('codigo','Codigo:', ['class' => 'label-required','for' => 'codigo'])  !!}
             {!! Form::text('codigo',$funcionario->codigo,['class' => 'form-control', 'id' => 'codigo', 'onChange'=>'getNome()', 'onClick'=>'getNome()']) !!}
@@ -17,6 +18,7 @@
                 var formData = {
                     _token: '<?php echo csrf_token() ?>',
                     codigo: $('#codigo').val(),
+                    tipo_funcionario: $('#tipo_funcionario').val(),
                 } 
                 
                 $.ajax({
@@ -52,6 +54,7 @@
                         }
                         else
                         {
+                            document.getElementById('codigo').value = "";
                             document.getElementById('nome_completo').readOnly = true;
                             document.getElementById('nuit').readOnly = true;
                             document.getElementById('numero_documento').readOnly = true;
