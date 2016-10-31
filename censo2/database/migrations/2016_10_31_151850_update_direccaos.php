@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateBancos extends Migration
+class UpdateDireccaos extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class UpdateBancos extends Migration
      */
     public function up()
     {
-        Schema::table('bancos', function ($table) {
+        Schema::table('direccaos', function ($table) {
             $table->string('codigo')->length(15);
         });
     }
@@ -24,7 +24,7 @@ class UpdateBancos extends Migration
      */
     public function down()
     {
-        Schema::table('bancos', function ($table) {
+        Schema::table('direccaos', function ($table) {
             $table->dropColumn('codigo');
         });
     }
