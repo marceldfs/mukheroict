@@ -62,6 +62,9 @@
                                         
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="{{ url('/utilizadores') }}"><i class="fa fa-btn fa-sign-out"></i>Utilizadores</a></li>
+                                        <li><a href="{{ url('/relatorioEfectivos') }}"><i class="fa fa-btn fa-sign-out"></i>Efectivos</a></li>
+                                        <li><a href="{{ url('/relatorioPensionistas') }}"><i class="fa fa-btn fa-sign-out"></i>Pensionistas</a></li>
+                                        <li><a href="{{ url('/relatorioReformados') }}"><i class="fa fa-btn fa-sign-out"></i>Reformados</a></li>
                                     </ul>
                                 </li>
                                 @endif
