@@ -552,8 +552,8 @@ class ColaboradorController extends Controller
        $user=Auth::user()->funcionariosCreated();
        $estado_civil=Estado_civil::where('id',$request->input('estado_civil'))->first();
        
-       $funcionario=$request->funcionario;
-       $funcionario_pensionista=$request->funcionario_pensionista;
+       $funcionario = new Funcionario;
+       $funcionario_pensionista = new Funcionario_pensionista;
        
        $funcionario->codigo=$request->codigo;
        $funcionario->nome_completo=$request->nome_completo;
