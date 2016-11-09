@@ -417,7 +417,7 @@ class ColaboradorController extends Controller
    public function storeFuncionarioEfectivo(Request $request)
    {
        $this->validate($request, [
-           'codigo' => 'required|exists:funcionario_existente,codigo|unique:funcionarios,codigo',
+           'codigo' => 'required|exists:funcionario_existente,codigo|unique:funcionarios,codigo|regex:[A-Z0-9]',
            'nome_completo' =>'required|max:75',
            'numero_documento' =>'required|max:20',
            'nuit' =>'required|digits:9',
@@ -481,7 +481,7 @@ class ColaboradorController extends Controller
    public function storeFuncionarioReformado(Request $request)
    {
        $this->validate($request, [
-           'codigo' => 'required|exists:funcionario_existente,codigo|unique:funcionarios,codigo',
+           'codigo' => 'required|exists:funcionario_existente,codigo|unique:funcionarios,codigo|regex:[A-Z0-9]',
            'nome_completo' =>'required|max:75',
            'numero_documento' =>'required|max:20',
            'nuit' =>'required|digits:9',
@@ -539,7 +539,7 @@ class ColaboradorController extends Controller
    public function storeFuncionarioPensionista(Request $request)
    {
        $this->validate($request, [
-           'codigo' => 'required|exists:funcionario_existente,codigo|unique:funcionarios,codigo',
+           'codigo' => 'required|exists:funcionario_existente,codigo|unique:funcionarios,codigo|regex:[A-Z0-9]',
            'nome_completo' =>'required|max:75',
            'numero_documento' =>'required|max:20',
            'nuit' =>'required|digits:9',
@@ -1246,20 +1246,20 @@ class ColaboradorController extends Controller
         if(count(Funcionario_pensionista::where('funcionario_id',$funcionario->id)->get())>=1)
         {
             $this->validate($request, [
-               'codigo' => 'required|exists:funcionario_existente,codigo',
+               'codigo' => 'required|exists:funcionario_existente,codigo|regex:[A-Z0-9]',
                'nome_completo' =>'required|max:75',
                'numero_documento' =>'required|max:20',
                'nuit' =>'required|digits:9',
                'numero_conta_mzn' =>'required|digits_between:7,21',
                'celular' =>'required|digits_between:8,13',
                'morada' =>'required',
-               'codigo_familiar' => 'required|exists:funcionario_existente,codigo',
+               'codigo_familiar' => 'required|exists:funcionario_existente,codigo|regex:[A-Z0-9]',
            ]);
         }
         if(count(Funcionario_reformado::where('funcionario_id',$funcionario->id)->get())>=1)
         {
             $this->validate($request, [
-                'codigo' => 'required|exists:funcionario_existente,codigo',
+                'codigo' => 'required|exists:funcionario_existente,codigo|regex:[A-Z0-9]',
                 'nome_completo' =>'required|max:75',
                 'numero_documento' =>'required|max:20',
                 'nuit' =>'required|digits:9',
@@ -1273,7 +1273,7 @@ class ColaboradorController extends Controller
         if(count(Funcionario_efectivo::where('funcionario_id',$funcionario->id)->get())>=1)
         {
             $this->validate($request, [
-                'codigo' => 'required|exists:funcionario_existente,codigo',
+                'codigo' => 'required|exists:funcionario_existente,codigo|regex:[A-Z0-9]',
                 'nome_completo' =>'required|max:75',
                 'numero_documento' =>'required|max:20',
                 'nuit' =>'required|digits:9',

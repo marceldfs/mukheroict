@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Funcionario_efectivo;
+use App\Funcionario_reformado;
 use App\Funcionario;
 use App\Experiencia_edm;
+use App\Experiencia_edm_reformado;
 use App\Situacao_experiencia;
 use App\Direccao;
 use App\Departamento;
@@ -28,7 +30,7 @@ class AdminController extends Controller
     }
     
     public function efectivos(){
-        \Excel::create('Filename', function($excel) {
+        \Excel::create('Efectivos', function($excel) {
             $excel->sheet('Sheetname', function($sheet) {
 
                 $funcionariosEfectivos = Funcionario_efectivo::all();
@@ -97,6 +99,37 @@ class AdminController extends Controller
     }
     
     public function reformados(){
-    
+        \Excel::create('Reformados', function($excel) {
+            $excel->sheet('Sheetname', function($sheet) {
+
+                $funcionariosReformados = Funcionario_reformado::all();
+                $i=2;
+                $sheet->row(1, array(
+                    'Num. Trabalhador',
+                    'Nome',
+                    'Data_reforma',
+                    'Direccao',
+                    '',
+                ));
+                foreach ($funcionariosReformados as $funcionarioReformado)
+                {
+                    $funcionario= Funcionario::where('id',$funcionarioReformado->funcionario_id)->first() == null ? new Funcionario : 
+                            Funcionario::where('id',$funcionarioReformado->funcionario_id)->first();
+                    $experiencia_edm= Experiencia_edm_reformado::where('funcionario_id',$funcionarioReformado->funcionario_id)->first() == null ? 
+                            new Experiencia_edm_reformado : Experiencia_edm_reformado::where('funcionario_id',$funcionarioReformado->funcionario_id)->first();
+                    $direccao= Direccao::where('id',$experiencia_edm->direccao)->first() == null ? 
+                            new Direccao : Direccao::where('id',$experiencia_edm->direccao)->first();
+                    $sheet->row($i, array(
+                        $funcionario->codigo,
+                        $funcionario->nome_completo,
+                        $experiencia_edm->data_reforma,
+                        $direccao->codigo,
+                        $direccao->descricao,
+                    ));
+                    $i++;
+                }
+
+            });
+        })->export('xls');
     }
 }
